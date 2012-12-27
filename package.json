@@ -9,7 +9,9 @@
     "ejs": "0.8.x",
     "async": "~0.1.22",
     "ejs-locals": "~1.0.2",
-    "flashify": "~0.1.0"
+    "flashify": "~0.1.0",
+    "sequelize": "~1.6.0-beta4",
+    "sqlite3": "~2.1.5"
   },
   "scripts": {
     "start": "lcm server --use-nodemon -w"
