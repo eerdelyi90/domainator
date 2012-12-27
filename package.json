@@ -1,0 +1,17 @@
+{
+  "name": "locomotive-sequelize-boilerplate",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "locomotive": "0.3.x",
+    "express": "3.x.x",
+    "connect-powered-by": "0.1.x",
+    "ejs": "0.8.x",
+    "async": "~0.1.22",
+    "ejs-locals": "~1.0.2",
+    "flashify": "~0.1.0"
+  },
+  "scripts": {
+    "start": "lcm server --use-nodemon -w"
+  }
+}

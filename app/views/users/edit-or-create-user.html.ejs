@@ -1,0 +1,43 @@
+<div class="control-group">
+  <label class="control-label">Username</label>
+  <div class="controls">
+    <input type="text" name="username" placeholder="Username"
+      value="<%= user.username || '' %>"
+      autocomplete="off"
+      pattern="\S{4,}"
+      title="Minimum of 4 characters, no white space"
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">Password</label>
+  <div class="controls">
+    <input type="password" name="password" placeholder="Password"
+      value="<%= user.password || '' %>"
+      required
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">First Name</label>
+  <div class="controls">
+    <input type="text" name="firstname" placeholder="First Name"
+      value="<%= user.firstname || '' %>"
+      required
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">Last Name</label>
+  <div class="controls">
+    <input type="text" name="lastname" placeholder="Last Name"
+      value="<%= user.lastname || '' %>"
+      required
+    >
+  </div>
+</div>
+<div class="control-group">
+  <div class="controls">
+    <button type="submit" class="btn">Save user</button>
+  </div>
+</div>

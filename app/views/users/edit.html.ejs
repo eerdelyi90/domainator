@@ -1,0 +1,9 @@
+<% layout('../layout.html') %>
+<% block('title', '<a href="/users">Users</a>') %>
+<% block('subtitle', 'Edit User') %>
+<div class="container">
+  <form method="post" action="<%= userPath(user.id) %>" class="form-horizontal user-form">
+    <input type="hidden" name="_method" value="put"/>
+    <% include edit-or-create-user.html.ejs %>
+  </form>
+</div>
