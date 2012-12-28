@@ -12,6 +12,9 @@ module.exports = function(done) {
     logging : console.log
   });
 
+  // keep track of all models in a 'model registry'
+  var registry  = require('app/models');
+
   // find models and load them
   var modelsdir = __dirname + '/../../app/models';
   var this_     = this;
@@ -19,11 +22,13 @@ module.exports = function(done) {
     /* match .js files only (for now) */
     if (/\.js$/.test(file))
     {
-      // load model
-      var mod   = require(path.join(modelsdir, file));
-      var model = mod.initialize(this_.sequelize, Sequelize);
+      // let Sequelize import model
+      var model = this_.sequelize.import(path.join(modelsdir, file));
 
-      /* sync model (creates tables if they don't yet exist) */
+      // registry model with registry
+      registry.registerModel(model);
+
+      // sync model (creates tables if they don't yet exist)
       model.sync()
         .success(function() {
           next();
