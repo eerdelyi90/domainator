@@ -37,8 +37,3 @@ lcm server
 
 Finally, point your browser to [http://localhost:3000](http://localhost:3000)!
 
-## Things to note
-
-Sequelize has its quirks, so loading the models in the user controller is somewhat cumbersome. Let me know if you have
-better ways of combining Sequelize models with Locomotive!
-
