@@ -31,6 +31,8 @@ module.exports = function(done) {
           next(error);
         });
     }
+    else
+      next();
   }, function() {
     done();
   });
