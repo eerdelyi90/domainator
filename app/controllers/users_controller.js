@@ -1,9 +1,9 @@
 var locomotive      = require('locomotive');
 var Controller      = locomotive.Controller;
+var User            = require('app/models/user').User;
 var UsersController = new Controller();
 
 UsersController.index = function() {
-  var User  = this.app.sequelize.import('app/models/user.js');
   var this_ = this;
 
   // load all Users
@@ -22,7 +22,6 @@ UsersController.new = function() {
 
 UsersController.create = function() {
   var this_   = this;
-  var User    = this.app.sequelize.import('app/models/user.js');
   var params  = this.req.body;
   var path    = this.usersPath();
 
@@ -39,7 +38,6 @@ UsersController.create = function() {
 
 UsersController.edit = function() {
   var this_ = this;
-  var User  = this.app.sequelize.import('app/models/user.js');
   var id    = this.param('id');
 
   User.find(id)
@@ -53,7 +51,6 @@ UsersController.edit = function() {
 
 UsersController.update = function() {
   var this_   = this;
-  var User    = this.app.sequelize.import('app/models/user.js');
   var params  = this.req.body;
   var path    = this.usersPath();
 

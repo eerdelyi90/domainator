@@ -19,8 +19,9 @@ module.exports = function(done) {
     /* match .js files only (for now) */
     if (/\.js$/.test(file))
     {
-      /* let sequelize load the model */
-      var model = this_.sequelize.import(path.join(modelsdir, file));
+      // load model
+      var mod   = require(path.join(modelsdir, file));
+      var model = mod.initialize(this_.sequelize, Sequelize);
 
       /* sync model (creates tables if they don't yet exist) */
       model.sync()
