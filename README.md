@@ -42,6 +42,6 @@ Finally, point your browser to [http://localhost:3000](http://localhost:3000)!
 This project contains a very basic test setup, all it does is boot the
 LocomotiveJS application and test if the `User` model exists. Run the test
 like this:
-```shell
+```
 npm test
 ```
