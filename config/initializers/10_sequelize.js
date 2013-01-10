@@ -9,7 +9,7 @@ module.exports = function(done) {
   this.sequelize = new Sequelize(null, null, null, {
     dialect : 'sqlite',
     storage : 'locomotive-sequelize-boilerplate.db',
-    logging : console.log
+    logging : this.env == 'development' ? console.log : false
   });
 
   // keep track of all models in a 'model registry'
