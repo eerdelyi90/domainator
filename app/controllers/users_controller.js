@@ -1,6 +1,6 @@
 var locomotive      = require('locomotive');
 var Controller      = locomotive.Controller;
-var User            = require('app/models').User;
+var User            = require('../models').User;
 var UsersController = new Controller();
 
 UsersController.index = function() {
