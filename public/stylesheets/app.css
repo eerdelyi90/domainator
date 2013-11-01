@@ -1,0 +1,13 @@
+.user-form
+{
+  width       : 100%;
+  background  : #efefef;
+  padding     : 1em;
+  box-sizing  : border-box;
+  border-radius : 6px;
+}
+
+.user-form .control-group {
+  width       : 50%;
+  margin      : 18px auto;
+}
