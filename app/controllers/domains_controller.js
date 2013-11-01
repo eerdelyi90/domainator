@@ -9,6 +9,7 @@ DomainsController.index = function() {
   // load all Domains
   Domain.findAll()
     .success(function(domains) {
+      console.log(domains);
       this_.render({ domains : domains });
     })
     .error(function(error) {
@@ -53,12 +54,13 @@ DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.domainsPath();
-
+  console.log("PARAMS", params);
   Domain.find(this.param('id'))
     .success(function(domain) {
       domain.updateAttributes(params)
         .success(function() {
           this_.req.flash('success', 'Domain was updated!');
+
           this_.redirect(path);
         })
         .error(function(error) {

@@ -54,6 +54,8 @@ UsersController.update = function() {
   var params  = this.req.body;
   var path    = this.usersPath();
 
+  console.log(params);
+
   User.find(this.param('id'))
     .success(function(user) {
       user.updateAttributes(params)
