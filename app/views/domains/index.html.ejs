@@ -38,11 +38,25 @@
       <tbody>
         <% domains.forEach(function(Domain) { %>
           <tr>
-            <td><%= Domain.Domainname %></td>
-            <td><%= Domain.password %></td>
-            <td><%= Domain.firstname %></td>
-            <td><%= Domain.lastname %></td>
-            <td><a href="<%= editDomainPath(Domain.id) %>" class="btn btn-inverse">Edit</a></td>
+            <td><%= domains.domainsname %></td>
+            <td><%= domains.password %></td>
+            <td><%= domains.firstname %></td>
+            <td><%= domains.lastname %></td>
+            <td><%= domains.domainsname %></td>
+            <td><%= domains.password %></td>
+            <td><%= domains.firstname %></td>
+            <td><%= domains.lastname %></td>
+            <td><%= domains.domainsname %></td>
+            <td><%= domains.password %></td>
+            <td><%= domains.firstname %></td>
+            <td><%= domains.lastname %></td>
+            <td><%= domains.domainsname %></td>
+            <td><%= domains.password %></td>
+            <td><%= domains.firstname %></td>
+            <td><%= domains.lastname %></td>
+            <td><%= domains.domainsname %></td>
+            <td><%= domains.password %></td>
+            <td><a href="<%= editdomainPath(domains.id) %>" class="btn btn-inverse">Edit</a></td>
           </tr>
         <% }) %>
       </tbody>
