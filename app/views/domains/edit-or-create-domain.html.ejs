@@ -1,7 +1,7 @@
 <div class="control-group">
   <label class="control-label">Registrar</label>
   <div class="controls">
-    <input type="text" name="Registrar" placeholder="Registrar"
+    <input type="text" name="registrar" placeholder="Registrar"
       value="<%= domains.registrar || '' %>"
       required
     >
@@ -10,7 +10,7 @@
 <div class="control-group">
   <label class="control-label">Action</label>
   <div class="controls">
-    <input type="text" name="Action" placeholder="Action"
+    <input type="text" name="action" placeholder="Action"
       value="<%= domains.action || '' %>"
       required
     >
@@ -19,151 +19,149 @@
 <div class="control-group">
   <label class="control-label">Renewed</label>
   <div class="controls">
-    <input type="text" name="username" placeholder="domains"
+    <input type="text" name="renewed" placeholder="Renewed"
       value="<%= domains.domainsname || '' %>"
-      autocomplete="off"
-      pattern="\S{4,}"
-      title="Minimum of 4 characters, no white space"
-    >
-  </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Password</label>
-  <div class="controls">
-    <input type="password" name="password" placeholder="Password"
-      value="<%= domains.password || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">First Name</label>
+  <label class="control-label">Price</label>
   <div class="controls">
-    <input type="text" name="firstname" placeholder="First Name"
-      value="<%= domains.firstname || '' %>"
+    <input type="text" name="price" placeholder="Price"
+      value="<%= domains.price || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Last Name</label>
+  <label class="control-label">Domain</label>
   <div class="controls">
-    <input type="text" name="lastname" placeholder="Last Name"
-      value="<%= domains.lastname || '' %>"
+    <input type="text" name="domain" placeholder="Domain"
+      value="<%= domains.domain || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Registrar</label>
+  <label class="control-label">Expiry</label>
   <div class="controls">
-    <input type="text" name="username" placeholder="domains"
-      value="<%= domains.domainsname || '' %>"
-      autocomplete="off"
-      pattern="\S{4,}"
-      title="Minimum of 4 characters, no white space"
-    >
-  </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Password</label>
-  <div class="controls">
-    <input type="password" name="password" placeholder="Password"
-      value="<%= domains.password || '' %>"
+    <input type="text" name="expiry" placeholder="Expiry"
+      value="<%= domains.expiry || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">First Name</label>
+  <label class="control-label">Registrant</label>
   <div class="controls">
-    <input type="text" name="firstname" placeholder="First Name"
-      value="<%= domains.firstname || '' %>"
+    <input type="text" name="registrant" placeholder="registrant"
+      value="<%= domains.registrant || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Last Name</label>
+  <label class="control-label">Registrant Email</label>
   <div class="controls">
-    <input type="text" name="lastname" placeholder="Last Name"
-      value="<%= domains.lastname || '' %>"
+    <input type="text" name="registrant_email" placeholder="Registrant Email"
+      value="<%= domains.registrant_email || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Registrar</label>
+  <label class="control-label">Contact Name</label>
   <div class="controls">
-    <input type="text" name="username" placeholder="domains"
-      value="<%= domains.domainsname || '' %>"
-      autocomplete="off"
-      pattern="\S{4,}"
-      title="Minimum of 4 characters, no white space"
-    >
-  </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Password</label>
-  <div class="controls">
-    <input type="password" name="password" placeholder="Password"
-      value="<%= domains.password || '' %>"
+    <input type="text" name="contact_name" placeholder="Contact Name"
+      value="<%= domains.contact_name || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">First Name</label>
+  <label class="control-label">Address 1</label>
   <div class="controls">
-    <input type="text" name="firstname" placeholder="First Name"
-      value="<%= domains.firstname || '' %>"
+    <input type="text" name="address1" placeholder="Address 1"
+      value="<%= domains.address1 || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Last Name</label>
+  <label class="control-label">Address 2</label>
   <div class="controls">
-    <input type="text" name="lastname" placeholder="Last Name"
-      value="<%= domains.lastname || '' %>"
+    <input type="text" name="address2" placeholder="Address 2"
+      value="<%= domains.address2 || '' %>"
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">Address 3</label>
+  <div class="controls">
+    <input type="text" name="address3" placeholder="Address 3"
+      value="<%= domains.address3 || '' %>"
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">City</label>
+  <div class="controls">
+    <input type="text" name="city" placeholder="City"
+      value="<%= domains.city || '' %>"
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">County</label>
+  <div class="controls">
+    <input type="text" name="county" placeholder="County"
+      value="<%= domains.county || '' %>"
+    >
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">Postcode</label>
+  <div class="controls">
+    <input type="text" name="postcode" placeholder="Postcode"
+      value="<%= domains.postcode || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Registrar</label>
+  <label class="control-label">Country</label>
   <div class="controls">
-    <input type="text" name="username" placeholder="domains"
-      value="<%= domains.domainsname || '' %>"
-      autocomplete="off"
-      pattern="\S{4,}"
-      title="Minimum of 4 characters, no white space"
-    >
-  </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Password</label>
-  <div class="controls">
-    <input type="password" name="password" placeholder="Password"
-      value="<%= domains.password || '' %>"
+    <input type="text" name="country" placeholder="Country"
+      value="<%= domains.country || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">First Name</label>
+  <label class="control-label">DNS0</label>
   <div class="controls">
-    <input type="text" name="firstname" placeholder="First Name"
-      value="<%= domains.firstname || '' %>"
+    <input type="text" name="DNS0" placeholder="DNS0"
+      value="<%= domains.DNS0 || '' %>"
       required
     >
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label">Last Name</label>
+  <label class="control-label">DNS1</label>
   <div class="controls">
-    <input type="text" name="lastname" placeholder="Last Name"
-      value="<%= domains.lastname || '' %>"
+    <input type="text" name="DNS1" placeholder="DNS1"
+      value="<%= domains.DNS1 || '' %>"
+      required
+    >
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label">DNS2</label>
+  <div class="controls">
+    <input type="text" name="DNS2" placeholder="DNS2"
+      value="<%= domains.DNS2 || '' %>"
       required
     >
   </div>
