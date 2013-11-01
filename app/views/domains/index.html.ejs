@@ -29,33 +29,48 @@
   <div class="container">
     <table class="table table-striped table-bordered table-hover">
       <thead>
-        <th>Domainname</th>
-        <th>Password</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
+           <th>registrar</th>
+            <th>action</th>
+            <th>renewed</th>
+            <th>price</th>
+            <th>domain</th>
+            <th>expiry</th>
+            <th>registrant</th>
+            <th>registrant_email</th>
+            <th>contact_name</th>
+            <th>address1</th>
+            <th>address2</th>
+            <th>address3</th>
+            <th>city</th>
+            <th>county</th>
+            <th>postcode</th>
+            <th>country</th>
+            <th>DNS0</th>
+            <th>DNS1</th>
+            <th>DNS12</th>
       </thead>
       <tbody>
         <% domains.forEach(function(Domain) { %>
           <tr>
-            <td><%= domains.domainsname %></td>
-            <td><%= domains.password %></td>
-            <td><%= domains.firstname %></td>
-            <td><%= domains.lastname %></td>
-            <td><%= domains.domainsname %></td>
-            <td><%= domains.password %></td>
-            <td><%= domains.firstname %></td>
-            <td><%= domains.lastname %></td>
-            <td><%= domains.domainsname %></td>
-            <td><%= domains.password %></td>
-            <td><%= domains.firstname %></td>
-            <td><%= domains.lastname %></td>
-            <td><%= domains.domainsname %></td>
-            <td><%= domains.password %></td>
-            <td><%= domains.firstname %></td>
-            <td><%= domains.lastname %></td>
-            <td><%= domains.domainsname %></td>
-            <td><%= domains.password %></td>
+            <td><%= domains.registrar %></td>
+            <td><%= domains.action %></td>
+            <td><%= domains.renewed %></td>
+            <td><%= domains.price %></td>
+            <td><%= domains.domain %></td>
+            <td><%= domains.expiry %></td>
+            <td><%= domains.registrant %></td>
+            <td><%= domains.registrant_email %></td>
+            <td><%= domains.contact_name %></td>
+            <td><%= domains.address1 %></td>
+            <td><%= domains.address2 %></td>
+            <td><%= domains.address3 %></td>
+            <td><%= domains.city %></td>
+            <td><%= domains.county %></td>
+            <td><%= domains.postcode %></td>
+            <td><%= domains.country %></td>
+            <td><%= domains.DNS0 %></td>
+            <td><%= domains.DNS1 %></td>
+            <td><%= domains.DNS12 %></td>
             <td><a href="<%= editdomainPath(domains.id) %>" class="btn btn-inverse">Edit</a></td>
           </tr>
         <% }) %>
