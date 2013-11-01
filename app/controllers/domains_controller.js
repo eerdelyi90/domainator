@@ -8,8 +8,8 @@ DomainsController.index = function() {
 
   // load all Domains
   Domain.findAll()
-    .success(function(Domains) {
-      this_.render({ Domains : Domains });
+    .success(function(domains) {
+      this_.render({ domains : domains });
     })
     .error(function(error) {
       this_.next(error);
@@ -17,16 +17,16 @@ DomainsController.index = function() {
 };
 
 DomainsController.new = function() {
-  this.render({ Domain : {} });
+  this.render({ domain : {} });
 };
 
 DomainsController.create = function() {
   var this_   = this;
   var params  = this.req.body;
-  var path    = this.DomainsPath();
+  var path    = this.domainsPath();
 
   Domain.create(params)
-    .success(function(Domain) {
+    .success(function(domain) {
       this_.req.flash('success', 'New Domain was created!');
       this_.redirect(path);
     })
@@ -41,8 +41,8 @@ DomainsController.edit = function() {
   var id    = this.param('id');
 
   Domain.find(id)
-    .success(function(Domain) {
-      this_.render({ Domain : Domain });
+    .success(function(domain) {
+      this_.render({ domain : domain });
     })
     .error(function(error) {
       this_.next(error);
@@ -52,10 +52,10 @@ DomainsController.edit = function() {
 DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
-  var path    = this.DomainsPath();
+  var path    = this.domainsPath();
 
   Domain.find(this.param('id'))
-    .success(function(Domain) {
+    .success(function(domain) {
       Domain.updateAttributes(params)
         .success(function() {
           this_.req.flash('success', 'Domain was updated!');

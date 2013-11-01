@@ -8,11 +8,11 @@ PagesController.main = function() {
   this.stuff ='stuff';
   this.render();
 }
-PagesController.domains = function() {
-  this.title = 'domains';
-  this.stuff ='domains';
-  this.render();
-}
+// PagesController.domains = function() {
+//   this.title = 'domains';
+//   this.stuff ='domains';
+//   this.render();
+// }
 PagesController.settings = function() {
   this.title = 'settings';
   this.stuff ='settings';
