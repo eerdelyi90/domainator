@@ -56,7 +56,7 @@ DomainsController.update = function() {
 
   Domain.find(this.param('id'))
     .success(function(domain) {
-      Domain.updateAttributes(params)
+      domain.updateAttributes(params)
         .success(function() {
           this_.req.flash('success', 'Domain was updated!');
           this_.redirect(path);
