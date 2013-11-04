@@ -45,6 +45,7 @@
                   <td><%= user.firstname %></td>
                   <td><%= user.lastname %></td>
                   <td><a href="<%= editUserPath(user.id) %>" class="btn btn-inverse">Edit</a></td>
+                  <td><a href="#" data-id="<%= user.id %>" class="btn btn-inverse delete-user-path">Delete</a></td>
                 </tr>
               <% }) %>
             </tbody>

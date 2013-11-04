@@ -56,12 +56,15 @@
                  <% domains.forEach(function(domain) { %>
                    <tr>
                      <td><%= domain.registrar %></td>
-         <!--             <td><%= domain.action %></td>
+                     <!-- 
+                     <td><%= domain.action %></td>
                      <td><%= domain.renewed %></td>
-                     <td><%= domain.price %></td> -->
+                     <td><%= domain.price %></td>
+                     -->
                      <td><%= domain.domain %></td>
                      <td><%= domain.expiry %></td>
-                 <!--     <td><%= domain.registrant %></td>
+                     <!--
+                     <td><%= domain.registrant %></td>
                      <td><%= domain.registrant_email %></td>
                      <td><%= domain.contact_name %></td>
                      <td><%= domain.address1 %></td>
@@ -73,11 +76,14 @@
                      <td><%= domain.country %></td>
                      <td><%= domain.DNS0 %></td>
                      <td><%= domain.DNS1 %></td>
-                     <td><%= domain.DNS2 %></td> -->
+                     <td><%= domain.DNS2 %></td>
+                     -->
                      <td><a href="<%= editDomainPath(domain.id) %>" class="btn btn-inverse">Edit</a></td>
+                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse delete-domain-path">Delete</a></td>
                    </tr>
                  <% }) %>
                </tbody>
+               
          </table>
        </div>
        </div>

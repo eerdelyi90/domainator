@@ -74,4 +74,23 @@ UsersController.update = function() {
     });
 };
 
+UsersController.destroy = function(req, res){
+
+  var this_   = this;
+  var id    = this.param('id');
+
+  User.find(id)
+  .success(function(user) {
+      // now i'm gone :)
+      this_.req.flash('success', 'User was deleted!');
+      user.destroy();
+
+    })
+    .error(function(error) {
+          this_.req.flash('error', 'Something went wrong! ' + error);
+          // this_.redirect(path);
+    });
+
+};
+
 module.exports = UsersController;

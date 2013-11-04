@@ -1,0 +1,9 @@
+<% layout('../layout.html') %>
+<% block('title', '<a href="/domains">Domains</a>') %>
+<% block('subtitle', 'Edit domain') %>
+<div class="container">
+  <form method="post" action="<%= domainPath(domain.id) %>" class="form-horizontal domain-form">
+    <input type="hidden" name="_method" value="put"/>
+    <% include edit-or-create-domain.html.ejs %>
+  </form>
+</div>

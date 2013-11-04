@@ -9,7 +9,6 @@ DomainsController.index = function() {
   // load all Domains
   Domain.findAll()
     .success(function(domains) {
-      console.log(domains);
       this_.render({ domains : domains });
     })
     .error(function(error) {
@@ -47,14 +46,14 @@ DomainsController.edit = function() {
     })
     .error(function(error) {
       this_.next(error);
-    });
+  });
 };
 
 DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.domainsPath();
-  console.log("PARAMS", params);
+  // console.log("PARAMS", params);
   Domain.find(this.param('id'))
     .success(function(domain) {
       domain.updateAttributes(params)
@@ -72,6 +71,27 @@ DomainsController.update = function() {
       this_.req.flash('error', 'Something went wrong! ' + error);
       this_.redirect(path);
     });
+};
+
+
+
+DomainsController.destroy = function(req, res){
+
+  var this_   = this;
+  var id    = this.param('id');
+
+  Domain.find(id)
+  .success(function(domain) {
+      // now i'm gone :)
+      this_.req.flash('success', 'Domain was deleted!');
+      domain.destroy();
+
+    })
+    .error(function(error) {
+          this_.req.flash('error', 'Something went wrong! ' + error);
+          // this_.redirect(path);
+    });
+
 };
 
 module.exports = DomainsController;
