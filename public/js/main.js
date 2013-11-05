@@ -1,37 +1,28 @@
-var deleteDomainPath = function(id) {
+var deleteItem = function(id, path) {
   $.ajax({
-    url: '/domains/'+id,
+    url: '/'+path+'/'+id,
     type: 'delete',
     success: function(data){
-      alert(data);
+      
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
+}
 
-    },
-    error: function(a, b, c) {
-      console.log(a, b, c);
-    }
-  });
-}
-var deleteUserPath = function(id) {
-  $.ajax({
-    url: '/users/'+id,
-    type: 'delete',
-    success: function(data){
-      alert(data);
-    },
-    error: function(a, b, c) {
-      console.log(a, b, c);
-    }
-  });
-}
 $(document).ready(function(){
+
     $('.delete-domain-path').click(function(){
-      deleteDomainPath(
-        $(this).attr('data-id'));
-    
+      deleteItem(
+        $(this).attr('data-id'), 'domains');
+      $(this).parents('tr').remove();
     });
+
     $('.delete-user-path').click(function(){
-      deleteUserPath(
-        $(this).attr('data-id'));
- 
+      deleteItem(
+        $(this).attr('data-id'), 'users');
+      $(this).parents('tr').remove();
     });
+
 });

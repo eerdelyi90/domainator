@@ -1,8 +1,9 @@
+<% var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");%>
 <div class="control-group">
   <label class="control-label">Registrar</label>
   <div class="controls">
     <input type="text" name="registrar" placeholder="Registrar"
-      value="<%= domain.registrar || '' %>"
+      value="<%= domain.registrar || ''  %>"
       required
     >
   </div>
