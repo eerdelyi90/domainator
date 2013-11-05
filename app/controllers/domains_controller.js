@@ -1,15 +1,30 @@
 var locomotive        = require('locomotive');
 var dateFormat        = require('dateformat');
+var nodemailer        = require("nodemailer");
 var Controller        = locomotive.Controller;
 var Domain            = require('../models').Domain;
 var DomainsController = new Controller();
+
 var now               = new Date();
 now                   = now.setMonth(now.getMonth()+1);
-now                   = dateFormat(now, "yyyy/mm/dd HH:MM:SS");
-// var today             = new Date();
-// var dd                = today.getDate();
-// var mm                = today.getMonth()+1; //January is 0!
-// var yyyy              = today.getFullYear();
+now                   = dateFormat(now, "yyyy-mm-dd");
+
+var sendmailTransport = nodemailer.createTransport("SMTP", {
+    host: "smtp.cyb.co.uk", // hostname
+    secureConnection: false, // use SSL
+    port: 25, // port for secure SMTP
+    auth: {
+        user: "techsupport@cyb.co.uk",
+        pass: "rebyc01"
+    }
+});
+
+ var mailOptions = {
+    from: "cyber@cyb.co.uk",
+    to: "egon@cyb.co.uk",
+    subject: "The following domains are due for renewal!",
+    text: "Plaintext body"
+}
 
 DomainsController.index = function() {
   var this_ = this;
@@ -105,15 +120,42 @@ DomainsController.destroy = function(req, res){
 DomainsController.alerts = function(req, res){
 
   var this_ = this;
-  var currentDateString = 
+
 
   // load all Domains
+ 
   Domain.findAll(
-    {where: "expiry >" now },
+    {where: "expiry >= '" + now + "'" },
     {raw: true})
     .success(function(domains) {
-      console.log("ahahahvwdghklsd;hohhhhhhhhhhhhhhhhhho;fweo;uhfo;ehf;owehf;ofhr;o");
-      
+      console.log("sending mail",domains.length);
+      if(domains.length == 0){
+
+      }else{
+
+        var domainInfo = '';
+
+        for(i in domains) {
+          domain = domains[i];
+          domainInfo += ' + ' + domain.domain + "\n";
+        }
+
+        var mailOptions = {
+          from: "cyber@cyb.co.uk",
+          to: "egon@cyb.co.uk",
+          subject: "The following domains are due for renewal!",
+          text: "These domains need to be renewed within the next month: \n\n" +  domainInfo 
+      }
+      sendmailTransport.sendMail(mailOptions,  function(error, responseStatus){
+      console.log(error);
+          if(!error){
+              console.log(responseStatus.message); // response from the server
+              console.log(responseStatus.messageId); // Message-ID value used
+          }
+      });
+
+      console.log("sent!");
+      }
     })
     .error(function(error) {
       this_.next(error);
