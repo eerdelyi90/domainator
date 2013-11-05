@@ -1,6 +1,7 @@
 var locomotive        = require('locomotive');
 var dateFormat        = require('dateformat');
 var nodemailer        = require("nodemailer");
+ var cronJob          = require('cron').CronJob;
 var Controller        = locomotive.Controller;
 var Domain            = require('../models').Domain;
 var DomainsController = new Controller();
@@ -119,12 +120,15 @@ DomainsController.destroy = function(req, res){
 
 DomainsController.alerts = function(req, res){
 
-  var this_ = this;
+    var this_ = this;
 
-
-  // load all Domains
- 
-  Domain.findAll(
+    var job = new cronJob({
+      cronTime: '00 30 11 * * 1-7',
+      onTick: function() {
+        // Runs every weekday (Monday through Friday)
+        // at 11:30:00 AM. It does not run on Saturday
+        // or Sunday.
+    Domain.findAll(
     {where: "expiry >= '" + now + "'" },
     {raw: true})
     .success(function(domains) {
@@ -160,6 +164,15 @@ DomainsController.alerts = function(req, res){
     .error(function(error) {
       this_.next(error);
     });
+      },
+      start: false,
+    });
+  job.start();
+
+
+  // load all Domains
+ 
+
 
   /**
    * @TODO:

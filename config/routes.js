@@ -5,6 +5,9 @@ module.exports = function routes() {
   this.match('settings/', 'pages#settings');
   this.match('login/', 'pages#login');
 
+  // this.match('/login', passport.authenticate('local', { successRedirect: '/',
+  //                                                    failureRedirect: '/login' ));
+
 
   // user resources
   this.resources('users');

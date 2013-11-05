@@ -30,14 +30,15 @@
    <div class="row">
     <div class="col-lg-6">
        <div class="table-responsive">
-              <table class="table table-bordered table-hover tablesorter">
+              <table class="table table-bordered table-hover tablesorter ">
                <thead>
-                    <th>registrar<i class="icon-sort"></i></th>
-                 <!--     <th>action<i class="icon-sort"></i></th>
-                     <th>renewed<i class="icon-sort"></i></th>
-                     <th>price<i class="icon-sort"></i></th> -->
-                     <th>domain<i class="icon-sort"></i></th>
-                     <th>expiry<i class="icon-sort"></i></th>
+                    <th>registrar <i class="icon-sort"></i></th>
+                   <!--   <th>action<i class="icon-sort"></i></th>
+                     <th>renewed<i class="icon-sort"></i></th> -->
+                     <th>price <i class="icon-sort"></i></th>
+                     <th>domain <i class="icon-sort"></i></th>
+                     <th>expiry <i class="icon-sort"></i></th>
+                     <th>renew for <i class="icon-sort"></i></th>
                   <!--    <th>registrant<i class="icon-sort"></i></th>
                      <th>registrant_email<i class="icon-sort"></i></th>
                      <th>contact_name<i class="icon-sort"></i></th>
@@ -56,13 +57,17 @@
                  <% domains.forEach(function(domain) { %>
                    <tr>
                      <td><%= domain.registrar %></td>
+                    
                      <!-- 
                      <td><%= domain.action %></td>
                      <td><%= domain.renewed %></td>
+                      -->
+
                      <td><%= domain.price %></td>
-                     -->
+                     
                      <td><%= domain.domain %></td>
                      <td><%= domain.expiry %></td>
+                     <td><%= domain.renew %></td>
                      <!--
                      <td><%= domain.registrant %></td>
                      <td><%= domain.registrant_email %></td>
