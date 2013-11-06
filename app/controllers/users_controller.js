@@ -1,7 +1,9 @@
 var locomotive      = require('locomotive');
 var Controller      = locomotive.Controller;
 var User            = require('../models').User;
+var bcrypt          = require('bcrypt-nodejs');
 var UsersController = new Controller();
+
 
 UsersController.index = function() {
   var this_ = this;
@@ -24,6 +26,10 @@ UsersController.create = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.usersPath();
+
+  // Encrypt us some pazzw0rfd
+  params.password = bcrypt.hashSync(params.password);
+  // paramas.password = encrypt(params.password);
 
   User.create(params)
     .success(function(user) {
@@ -54,7 +60,9 @@ UsersController.update = function() {
   var params  = this.req.body;
   var path    = this.usersPath();
 
-  console.log(params);
+  params.password = bcrypt.hashSync(params.password);
+  
+  // console.log(params);
 
   User.find(this.param('id'))
     .success(function(user) {

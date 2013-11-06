@@ -1,7 +1,7 @@
 var locomotive        = require('locomotive');
 var dateFormat        = require('dateformat');
 var nodemailer        = require("nodemailer");
- var cronJob          = require('cron').CronJob;
+var cronJob          = require('cron').CronJob;
 var Controller        = locomotive.Controller;
 var Domain            = require('../models').Domain;
 var DomainsController = new Controller();
@@ -99,7 +99,7 @@ DomainsController.update = function() {
 
 
 
-DomainsController.destroy = function(req, res){
+DomainsController.destroy = function(){
 
   var this_   = this;
   var id    = this.param('id');
@@ -118,7 +118,7 @@ DomainsController.destroy = function(req, res){
 
 };
 
-DomainsController.alerts = function(req, res){
+DomainsController.alerts = function(){
 
     var this_ = this;
 
