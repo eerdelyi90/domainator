@@ -17,16 +17,15 @@ PagesController.login = function() {
   this.stuff ='login';
   var this_ = this;
 
-  // console.log('req:', this.req.body);
+  // Hash using bcrypt
+  var hash =  bcrypt.hashSync(this.req.body.password);
 
-  // , ["password = ?", this.req.body.password]
   User.findAll({ where: {
-      username: this.req.body.username,
-      password: this.req.body.password
+      username: this.req.body.username
     }}).success(function(users) {
-    if(users.length > 0){
-  
-    }else{
+    if(users.length > 0 && bcrypt.compareSync(this_.req.body.password, users[0].password)) {
+      console.log("YUUUUS");
+    } else {
       // NOOs
       console.log("NOOO");
     }
