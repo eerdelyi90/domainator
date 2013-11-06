@@ -5,6 +5,10 @@ module.exports = function routes() {
   this.match('/', 'pages#login', { via: 'POST' });
   this.match('settings/', 'pages#settings');
   // this.match('login/', 'pages#login');
+  this.resource('account');
+  this.match('login', 'account#loginForm', { via: 'get' });
+  this.match('login', 'account#login', { via: 'post' });
+  this.match('logout', 'account#logout');
 
   // this.match('/login', passport.authenticate('local', { successRedirect: '/',
   //                                                    failureRedirect: '/login' ));
