@@ -1,6 +1,6 @@
 module.exports = function routes() {
 
-
+ // var regex = new RegExp("[A-Za-z][A-Za-z0-9]");
   // home page
   this.match('/', 'account#show');
   // this.match('/', 'pages#login', { via: 'POST' });
@@ -11,6 +11,9 @@ module.exports = function routes() {
   this.match('login', 'account#login', { via: 'post' });
   this.match('logout', 'account#logout');
   this.match('error404', 'pages#error404');
+
+  
+  // this.match('error404', 'pages#error404');
 
   // this.match('/login', passport.authenticate('local', { successRedirect: '/',
   //                                                    failureRedirect: '/login' ));

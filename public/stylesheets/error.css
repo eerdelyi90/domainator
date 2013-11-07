@@ -98,7 +98,7 @@ LOGIN FORM
 	margin: 0 auto;
 	position: relative;
 	z-index:5;
-	
+	margin-top: 320px;
 	background: #f3f3f3;
 	border: 1px solid #fff;
 	/*border-radius: 5px;*/
@@ -299,4 +299,18 @@ FOOTER
 .login-form .footer .register:focus {
 	position: relative;
 	bottom: -1px;
+}
+ul{
+	text-decoration: none;
+	list-style: none;
+	padding-left: 20px;
+}
+li{
+	font-weight: bold;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	color: blue;
 }
