@@ -1,10 +1,11 @@
 var locomotive        = require('locomotive');
 var dateFormat        = require('dateformat');
 var nodemailer        = require("nodemailer");
-var cronJob          = require('cron').CronJob;
+var cronJob           = require('cron').CronJob;
 var Controller        = locomotive.Controller;
 var Domain            = require('../models').Domain;
 var DomainsController = new Controller();
+var login             = require('connect-ensure-login');
 
 var now               = new Date();
 now                   = now.setMonth(now.getMonth()+1);
@@ -29,6 +30,8 @@ var sendmailTransport = nodemailer.createTransport("SMTP", {
 
 DomainsController.index = function() {
   var this_ = this;
+
+  // console.log('user:' + this.req.user.id);
 
   // load all Domains
   Domain.findAll()
@@ -189,5 +192,7 @@ DomainsController.alerts = function(){
 
 
 }
+
+DomainsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = DomainsController;

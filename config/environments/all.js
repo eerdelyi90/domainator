@@ -2,7 +2,8 @@ var express   = require('express')
   , poweredBy = require('connect-powered-by')
   , util      = require('util')
   , ejslocals = require('ejs-locals')
-  , flashify  = require('flashify');
+  , flashify  = require('flashify')
+  , passport  = require('passport');
 
 module.exports = function() {
   // Configure application settings.  Consult the Express API Reference for a
@@ -30,14 +31,18 @@ module.exports = function() {
   // Use middleware.  Standard [Connect](http://www.senchalabs.org/connect/)
   // middleware is built-in, with additional [third-party](https://github.com/senchalabs/connect/wiki)
   // middleware available as separate modules.
+  this.use(express.static(__dirname + '/../../public')); 
   this.use(express.cookieParser());
+  this.use(express.bodyParser());
   this.use(express.session({ secret: 'SECRET' }));
+  this.use(passport.initialize());
+  this.use(passport.session());
   this.use(flashify); // needed for Express 3.x
   this.use(poweredBy('Locomotive'));
   this.use(express.logger());
   this.use(express.favicon());
-  this.use(express.static(__dirname + '/../../public'));
-  this.use(express.bodyParser());
   this.use(express.methodOverride());
   this.use(this.router);
+
+
 }

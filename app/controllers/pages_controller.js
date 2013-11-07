@@ -17,7 +17,7 @@ PagesController.login = function() {
   this.stuff ='login';
   var this_ = this;
 
-  // Hash using bcrypt
+  /*// Hash using bcrypt
   var hash =  bcrypt.hashSync(this.req.body.password);
 
   User.findAll({ where: {
@@ -29,7 +29,7 @@ PagesController.login = function() {
       // NOOs
       console.log("NOOO");
     }
-  });
+  });*/
   // this.render();
 
 }
@@ -37,6 +37,11 @@ PagesController.login = function() {
 PagesController.settings = function() {
   this.title = 'settings';
   this.stuff ='settings';
+  this.render();
+}
+PagesController.error404 = function() {
+  // this.title = 'settings';
+  // this.stuff ='settings';
   this.render();
 }
 

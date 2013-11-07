@@ -3,6 +3,8 @@ var Controller      = locomotive.Controller;
 var User            = require('../models').User;
 var bcrypt          = require('bcrypt-nodejs');
 var UsersController = new Controller();
+var login           = require('connect-ensure-login');
+
 
 
 UsersController.index = function() {
@@ -61,7 +63,7 @@ UsersController.update = function() {
   var path    = this.usersPath();
 
   params.password = bcrypt.hashSync(params.password);
-  
+
   // console.log(params);
 
   User.find(this.param('id'))
@@ -100,5 +102,6 @@ UsersController.destroy = function(req, res){
     });
 
 };
+UsersController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = UsersController;
