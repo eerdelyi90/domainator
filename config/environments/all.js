@@ -43,6 +43,10 @@ module.exports = function() {
   this.use(express.favicon());
   this.use(express.methodOverride());
   this.use(this.router);
+  this.use(function(req, res, next){
+  
+  res.redirect('error404');
+});
 
 
 }

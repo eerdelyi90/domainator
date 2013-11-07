@@ -27,9 +27,17 @@
   </div>
 </div> -->
 <div class="control-group">
+  <label class="control-label">Client</label>
+  <div class="controls">
+    <input type="text" name="client" placeholder="Price"
+      value="<%= domain.client || '' %>"
+      required
+    >
+  </div>
+<div class="control-group">
   <label class="control-label">Price</label>
   <div class="controls">
-    <input type="text" name="price" placeholder="Price"
+    <input type="number" name="price" placeholder="Price"
       value="<%= domain.price || '' %>"
       required
     >

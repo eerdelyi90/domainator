@@ -43,5 +43,8 @@ AccountController.logout = function() {
 AccountController.before('login', login.ensureLoggedOut('/'));
 AccountController.before('login', passport.authenticate('local', { failureRedirect: '/login',
                                                                  failureFlash: true }));
+// AccountController.before('*', function(){
+// this.req
+// });
 
 module.exports = AccountController;

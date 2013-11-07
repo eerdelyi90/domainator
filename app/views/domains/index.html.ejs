@@ -35,6 +35,7 @@
                     <th>registrar <i class="icon-sort"></i></th>
                    <!--   <th>action<i class="icon-sort"></i></th>
                      <th>renewed<i class="icon-sort"></i></th> -->
+                     <th>client <i class="icon-sort"></i></th>
                      <th>price <i class="icon-sort"></i></th>
                      <th>domain <i class="icon-sort"></i></th>
                      <th>expiry <i class="icon-sort"></i></th>
@@ -62,12 +63,12 @@
                      <td><%= domain.action %></td>
                      <td><%= domain.renewed %></td>
                       -->
-
-                     <td><%= domain.price %></td>
+                     <td><%= domain.client %></td>
+                     <td>£ <%= domain.price %></td>
                      
                      <td><%= domain.domain %></td>
                      <td><%= domain.expiry %></td>
-                     <td><%= domain.renew %></td>
+                     <td><%= domain.renew %> years</td>
                      <!--
                      <td><%= domain.registrant %></td>
                      <td><%= domain.registrant_email %></td>
