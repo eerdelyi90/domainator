@@ -3,6 +3,7 @@ var Controller      = locomotive.Controller;
 var User            = require('../models').User;
 var bcrypt          = require('bcrypt-nodejs');
 var UsersController = new Controller();
+var Log               = require('../models').Log;
 var login           = require('connect-ensure-login');
 
 
@@ -36,7 +37,7 @@ UsersController.create = function() {
   // Encrypt us some pazzw0rfd
   params.password = bcrypt.hashSync(params.password);
   // paramas.password = encrypt(params.password);
-  
+
   User.create(params)
     .success(function(user) {
       this_.req.flash('success', 'New user was created!');
@@ -69,6 +70,23 @@ UsersController.update = function() {
   params.password = bcrypt.hashSync(params.password);
 
   // console.log(params);
+  var params2 = {
+    module_name     : 'users',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'updated'
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
 
   User.find(this.param('id'))
     .success(function(user) {
@@ -92,6 +110,24 @@ UsersController.destroy = function(req, res){
 
   var this_   = this;
   var id    = this.param('id');
+
+    var params2 = {
+    module_name     : 'users',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'deleted'
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
 
   User.find(id)
   .success(function(user) {

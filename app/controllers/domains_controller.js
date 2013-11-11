@@ -84,10 +84,11 @@ DomainsController.update = function() {
   var path    = this.domainsPath();
   // console.log("PARAMS", params);
     var params2 = {
-    module_name: 'domains',
-    module_event_id: this_.req.user.id,
-    user_id: this_.req.user.id,
-    timestamp: new Date()
+    module_name     : 'domains',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'updated'
   };
 
   Log.create(params2)
@@ -124,6 +125,24 @@ DomainsController.destroy = function(){
 
   var this_   = this;
   var id    = this.param('id');
+
+  var params2 = {
+    module_name     : 'domains',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'deleted'
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
 
   Domain.find(id)
   .success(function(domain) {

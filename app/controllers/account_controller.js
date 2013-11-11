@@ -22,10 +22,11 @@ AccountController.show = function() {
   //   timestamp: new Date()
   // });
   var params = {
-    module_name: 'account',
-    module_event_id: this.req.user.id,
-    user_id: this.req.user.id,
-    timestamp: new Date()
+    module_name     : 'account',
+    module_event_id : this.req.user.id,
+    user_id         : this.req.user.id,
+    timestamp       : new Date(),
+    description     : 'login'
   };
   Log.create(params)
   .success(function(log) {
@@ -56,6 +57,23 @@ AccountController.login = function() {
 };
 
 AccountController.logout = function() {
+    var params2 = {
+    module_name     : 'account',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'logout'
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
   this.req.logout();
   this.redirect('/login');
 };

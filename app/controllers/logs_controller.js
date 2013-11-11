@@ -18,21 +18,27 @@ LogsController.index = function() {
     // Load logs
     // this.current_user = this.req.user ;
     
- 
-    User.findAll()
+    Log.findAll()
     .success(function(users) {
-
-       Domain.findAll()
-       .success(function(domains) {
-          this_.render({ domains : domains , users : users  });
-       })
-     .error(function(error) {
-        this_.next(error);
-      });
-    })
+       this_.render({logs : logs})
+      })
     .error(function(error) {
       this_.next(error);
     });
+    // User.findAll()
+    // .success(function(users) {
+
+    //    Domain.findAll()
+    //    .success(function(domains) {
+    //       this_.render({ domains : domains , users : users  });
+    //    })
+    //  .error(function(error) {
+    //     this_.next(error);
+    //   });
+    // })
+    // .error(function(error) {
+    //   this_.next(error);
+    // });
 };
 
 LogsController.new = function() {
