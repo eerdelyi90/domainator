@@ -1,45 +1,45 @@
 var locomotive      = require('locomotive');
 var Controller      = locomotive.Controller;
-var User            = require('../models').User;
+var Log            = require('../models').Log;
 var bcrypt          = require('bcrypt-nodejs');
-var UsersController = new Controller();
+var LogsController = new Controller();
 var login           = require('connect-ensure-login');
 
 
-UsersController.p_generate = function(){
+LogsController.p_generate = function(){
 var this_ = this;
 
 }
 
-UsersController.index = function() {
+LogsController.index = function() {
   var this_ = this;
 
-  // load all Users
-  User.findAll()
-    .success(function(users) {
-      this_.render({ users : users });
+  // load all Logs
+  Log.findAll()
+    .success(function(logs) {
+      this_.render({ logs : logs });
     })
     .error(function(error) {
       this_.next(error);
     });
 };
 
-UsersController.new = function() {
-  this.render({ user : {} });
+LogsController.new = function() {
+  this.render({ log : {} });
 };
 
-UsersController.create = function() {
+LogsController.create = function() {
   var this_   = this;
   var params  = this.req.body;
-  var path    = this.usersPath();
+  var path    = this.logsPath();
 
   // Encrypt us some pazzw0rfd
   params.password = bcrypt.hashSync(params.password);
   // paramas.password = encrypt(params.password);
 
-  User.create(params)
-    .success(function(user) {
-      this_.req.flash('success', 'New user was created!');
+  Log.create(params)
+    .success(function(log) {
+      this_.req.flash('success', 'New log was created!');
       this_.redirect(path);
     })
     .error(function(error) {
@@ -48,33 +48,33 @@ UsersController.create = function() {
     });
 };
 
-UsersController.edit = function() {
+LogsController.edit = function() {
   var this_ = this;
   var id    = this.param('id');
 
-  User.find(id)
-    .success(function(user) {
-      this_.render({ user : user });
+  Log.find(id)
+    .success(function(log) {
+      this_.render({ log : log });
     })
     .error(function(error) {
       this_.next(error);
     });
 };
 
-UsersController.update = function() {
+LogsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
-  var path    = this.usersPath();
+  var path    = this.logsPath();
 
   params.password = bcrypt.hashSync(params.password);
 
   // console.log(params);
 
-  User.find(this.param('id'))
-    .success(function(user) {
-      user.updateAttributes(params)
+  Log.find(this.param('id'))
+    .success(function(log) {
+      log.updateAttributes(params)
         .success(function() {
-          this_.req.flash('success', 'User was updated!');
+          this_.req.flash('success', 'Log was updated!');
           this_.redirect(path);
         })
         .error(function(error) {
@@ -88,16 +88,16 @@ UsersController.update = function() {
     });
 };
 
-UsersController.destroy = function(req, res){
+LogsController.destroy = function(req, res){
 
   var this_   = this;
   var id    = this.param('id');
 
-  User.find(id)
-  .success(function(user) {
+  Log.find(id)
+  .success(function(log) {
       // now i'm gone :)
-      this_.req.flash('success', 'User was deleted!');
-      user.destroy();
+      this_.req.flash('success', 'Log was deleted!');
+      log.destroy();
 
     })
     .error(function(error) {
@@ -106,6 +106,6 @@ UsersController.destroy = function(req, res){
     });
 
 };
-UsersController.before('*', login.ensureLoggedIn('/login'));
+LogsController.before('*', login.ensureLoggedIn('/login'));
 
-module.exports = UsersController;
+module.exports = LogsController;

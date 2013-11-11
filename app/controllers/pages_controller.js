@@ -8,6 +8,8 @@ var PagesController = new Controller();
 PagesController.main = function() {
   this.title = 'Dashboard';
   this.stuff ='stuff';
+  // User.
+  this.username = 'username';
   this.render();
 }
 

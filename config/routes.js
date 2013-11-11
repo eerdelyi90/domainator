@@ -26,7 +26,7 @@ module.exports = function routes() {
   this.match('domains/alerts', 'domains#alerts');
   this.resources('domains');
 
-
+  this.resources('logs');
 }
 
 // app.get('/settings',
