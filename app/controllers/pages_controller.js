@@ -13,12 +13,6 @@ PagesController.main = function() {
   this.render();
 }
 
-PagesController.login = function() {
-
-  this.title = 'login';
-  this.stuff ='login';
-  var this_ = this;
-}
 
 PagesController.error404 = function() {
   this.res.status(404);

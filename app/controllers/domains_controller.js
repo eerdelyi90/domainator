@@ -4,6 +4,7 @@ var nodemailer        = require("nodemailer");
 var cronJob           = require('cron').CronJob;
 var Controller        = locomotive.Controller;
 var Domain            = require('../models').Domain;
+var Log               = require('../models').Log;
 var DomainsController = new Controller();
 var login             = require('connect-ensure-login');
 
@@ -67,6 +68,7 @@ DomainsController.edit = function() {
   var this_ = this;
   var id    = this.param('id');
 
+
   Domain.find(id)
     .success(function(domain) {
       this_.render({ domain : domain });
@@ -81,6 +83,22 @@ DomainsController.update = function() {
   var params  = this.req.body;
   var path    = this.domainsPath();
   // console.log("PARAMS", params);
+    var params2 = {
+    module_name: 'domains',
+    module_event_id: this_.req.user.id,
+    user_id: this_.req.user.id,
+    timestamp: new Date()
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    });  
   Domain.find(this.param('id'))
     .success(function(domain) {
       domain.updateAttributes(params)
@@ -144,7 +162,10 @@ DomainsController.alerts = function(){
 
         for(i in domains) {
           domain = domains[i];
-          domainInfo += ' + ' + domain.domain + "\n";
+          domainInfo += ' + ' + domain.domain;
+          domainInfo += ' expires on' + domain.expiry;
+          domainInfo += '. The registrar is ' + domain.registrar;
+          domainInfo += '. The cost is ' + domain.price + "\n";
         }
 
         var mailOptions = {

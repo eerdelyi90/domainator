@@ -36,7 +36,7 @@ UsersController.create = function() {
   // Encrypt us some pazzw0rfd
   params.password = bcrypt.hashSync(params.password);
   // paramas.password = encrypt(params.password);
-
+  
   User.create(params)
     .success(function(user) {
       this_.req.flash('success', 'New user was created!');

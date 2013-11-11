@@ -2,18 +2,41 @@ var locomotive        = require('locomotive');
 var passport          = require('passport');
 var Controller        = locomotive.Controller;
 var User              = require('../models').User;
+var Log               = require('../models').Log;
 var login             = require('connect-ensure-login');
 var AccountController = new Controller();
-
-
-
+//var now               = new Date()
 
 AccountController.show = function() {
+  
+  var this_ = this;
+
   if (!this.req.isAuthenticated())
     return this.res.redirect(this.urlFor({ action: 'login' }));
 
   this.user = this.req.user;
-  this.render();
+  // console.log({
+  //   module_name: 'account',
+  //   module_event_id: this.req.user.id,
+  //   user_id: this.req.user.id,
+  //   timestamp: new Date()
+  // });
+  var params = {
+    module_name: 'account',
+    module_event_id: this.req.user.id,
+    user_id: this.req.user.id,
+    timestamp: new Date()
+  };
+  Log.create(params)
+  .success(function(log) {
+  this_.render();
+  })
+  .error(function(error) {
+  this_.render();
+  });
+
+    
+  
 };
 
 AccountController.new = function() {
@@ -21,8 +44,6 @@ AccountController.new = function() {
 };
 
 AccountController.loginForm = function() {
-
-  //console.log(this.req);
 
   this.render();
 };

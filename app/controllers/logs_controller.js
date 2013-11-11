@@ -1,6 +1,8 @@
 var locomotive      = require('locomotive');
 var Controller      = locomotive.Controller;
 var Log            = require('../models').Log;
+var User            = require('../models').User;
+var Domain            = require('../models').Domain;
 var bcrypt          = require('bcrypt-nodejs');
 var LogsController = new Controller();
 var login           = require('connect-ensure-login');
@@ -13,11 +15,20 @@ var this_ = this;
 
 LogsController.index = function() {
   var this_ = this;
+    // Load logs
+    // this.current_user = this.req.user ;
+    
+ 
+    User.findAll()
+    .success(function(users) {
 
-  // load all Logs
-  Log.findAll()
-    .success(function(logs) {
-      this_.render({ logs : logs });
+       Domain.findAll()
+       .success(function(domains) {
+          this_.render({ domains : domains , users : users  });
+       })
+     .error(function(error) {
+        this_.next(error);
+      });
     })
     .error(function(error) {
       this_.next(error);
