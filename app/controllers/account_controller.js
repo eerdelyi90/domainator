@@ -57,6 +57,7 @@ AccountController.login = function() {
 };
 
 AccountController.logout = function() {
+    var this_ = this;
     var params2 = {
     module_name     : 'account',
     module_event_id : this_.req.user.id,

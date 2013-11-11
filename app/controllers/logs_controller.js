@@ -19,7 +19,7 @@ LogsController.index = function() {
     // this.current_user = this.req.user ;
     
     Log.findAll()
-    .success(function(users) {
+    .success(function(logs) {
        this_.render({logs : logs})
       })
     .error(function(error) {
