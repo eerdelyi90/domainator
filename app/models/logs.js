@@ -1,10 +1,10 @@
 module.exports = function(sequelize, Sequelize) {
 
-  return sequelize.define('User', {
+  return sequelize.define('Log', {
     // username  		  : Sequelize.STRING,
     // password  		  : Sequelize.STRING,
     firstname 		  : Sequelize.STRING,
-    lastname  		  : Sequelize.STRING
+    lastname  		  : Sequelize.STRING,
     registrar         : Sequelize.STRING,
   	// action            : Sequelize.STRING,
     client            : Sequelize.STRING,
@@ -27,4 +27,5 @@ module.exports = function(sequelize, Sequelize) {
     DNS0              : Sequelize.STRING,
     DNS1              : Sequelize.STRING,
     DNS2              : Sequelize.STRING
-  }
+    });
+};
