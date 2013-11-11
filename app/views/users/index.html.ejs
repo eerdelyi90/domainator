@@ -33,7 +33,6 @@
           <table class="table table-bordered table-hover tablesorter">
             <thead>
               <th>Username<i class="icon-sort"></i></th>
-              <!-- <th>Password<i class="icon-sort"></i></th> -->
               <th>First Name<i class="icon-sort"></i></th>
               <th>Last Name<i class="icon-sort"></i></th>
             </thead>
@@ -41,7 +40,6 @@
               <% users.forEach(function(user) { %>
                 <tr>
                   <td><%= user.username %></td>
-                  <!-- <td><%= user.password %></td> -->
                   <td><%= user.firstname %></td>
                   <td><%= user.lastname %></td>
                   <td><a href="<%= editUserPath(user.id) %>" class="btn btn-inverse">Edit</a></td>

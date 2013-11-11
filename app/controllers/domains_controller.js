@@ -30,9 +30,9 @@ var sendmailTransport = nodemailer.createTransport("SMTP", {
 }
 
 DomainsController.index = function() {
-  var this_ = this;
+ 
+   var this_ = this;
 
-  // console.log('user:' + this.req.user.id);
 
   // load all Domains
   Domain.findAll()
