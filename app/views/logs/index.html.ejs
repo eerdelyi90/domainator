@@ -20,25 +20,22 @@
               <th>Updated By<i class="icon-sort"></i></th>
             </thead>
             <tbody>
-              <% 
-              logs.forEach(function(log) { 
-                  users.forEach(function(user) { 
-                %>
+              <% logs.forEach(function(log) { %>
 
                 <tr>
                   <td><%= log.module_name %></td>
                   <td><%= log.timestamp %></td>
                   <td><%= log.description %></td>
                   <td><%= log.user_id %></td>
-                  <td><%= user.username %></td>
+                  <td><%= log.User.username  %></td>
                 </tr>
-              <% })
-                })
-                 %>
+              <% }) %>
             </tbody>
           </table>
         </div>
        </div>
       </div>
   </div>
+
+
   <% } %>

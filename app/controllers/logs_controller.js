@@ -18,20 +18,26 @@ LogsController.index = function() {
     // Load logs
     // this.current_user = this.req.user ;
     
-    Log.findAll()
+    Log.findAll({ include: [ User ] })
     .success(function(logs) {
-      
-       User.findAll()
-         .success(function(users) {
-          console.log(users[0].id,logs[1].user_id,logs[0].user_id);
-          
-           this_.render({logs : logs , users : users});
-         })
-         .error(function(error) {
-        this_.next(error);
+
+      this_.render({logs : logs});
+
+      /**
+       * @todo  - Replace this bullshit, e.g. hasMany
+       */
+      /*var syncronisationsComplete = 0;
+      logs.forEach(function(log, index){
+        log.getUser().success(function(user){
+          logs[index].User = user;
+          ++syncronisationsComplete;
+          if(syncronisationsComplete == logs.length) {
+            this_.render({logs : logs});
+          }
         });
-        
-      })
+      });*/
+
+    })   
     .error(function(error) {
       this_.next(error);
     });
@@ -51,6 +57,6 @@ LogsController.index = function() {
     // });
 };
 
-LogsController.before('*', login.ensureLoggedIn('/login'));
+// LogsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = LogsController;
