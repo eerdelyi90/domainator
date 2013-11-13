@@ -18,21 +18,50 @@ LogsController.index = function() {
     // Load logs
     // this.current_user = this.req.user ;
     
+    var onSelectComplete = function(logs) {
+      var uniqueLogs = {};
+
+      // Loop though alll,
+      //  Loop through all
+      //    Assign key to object key and item to array if not already exists
+      //    
+      // uniqueLogs= {
+      //  module: [],
+      //  time: [],
+      //  description: []
+      // }
+      
+      var filterBy = ['module_name', 'user_id', 'description'];
+
+      filterBy.forEach(function(fieldName){
+         uniqueLogs[fieldName] = [];
+         logs.forEach(function(log){
+
+          if(uniqueLogs[fieldName].indexOf(log[fieldName]) == -1){
+             uniqueLogs[fieldName].push(log[fieldName]);
+          }
+          
+        });
+
+      })
+
+      console.log(uniqueLogs);
+
+      this_.render({'logs' : logs, 'uniqueLogs' : uniqueLogs});
+    }
+
+    
     Log.findAll()
     .success(function(logs) {
-
-      // this_.render({logs : logs});
-
-      /**
-       * @todo  - Replace this bullshit, e.g. hasMany
-       */
       var syncronisationsComplete = 0;
       logs.forEach(function(log, index){
         log.getUser().success(function(user){
           logs[index].User = user;
           ++syncronisationsComplete;
           if(syncronisationsComplete == logs.length) {
-            this_.render({logs : logs});
+
+            onSelectComplete(logs);
+
           }
         });
       });
@@ -57,6 +86,6 @@ LogsController.index = function() {
     // });
 };
 
-LogsController.before('*', login.ensureLoggedIn('/login'));
+// LogsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = LogsController;

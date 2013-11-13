@@ -53,6 +53,25 @@ DomainsController.create = function() {
   var params  = this.req.body;
   var path    = this.domainsPath();
 
+  var params2 = {
+  module_name     : 'domains',
+  module_event_id : this_.req.user.id,
+  user_id         : this_.req.user.id,
+  timestamp       : new Date(),
+  description     : 'created'
+  };
+
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
+
   Domain.create(params)
     .success(function(domain) {
       this_.req.flash('success', 'New Domain was created!');

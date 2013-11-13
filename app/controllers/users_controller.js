@@ -34,6 +34,24 @@ UsersController.create = function() {
   var params  = this.req.body;
   var path    = this.usersPath();
 
+    var params2 = {
+    module_name     : 'users',
+    module_event_id : this_.req.user.id,
+    user_id         : this_.req.user.id,
+    timestamp       : new Date(),
+    description     : 'created'
+  };
+
+  Log.create(params2)
+    .success(function(){
+
+
+  })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      // this_.redirect(path);
+    }); 
+
   // Encrypt us some pazzw0rfd
   params.password = bcrypt.hashSync(params.password);
   // paramas.password = encrypt(params.password);

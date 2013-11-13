@@ -9,6 +9,39 @@
   </div>
 <% } else { %>
   <div class="container logs">
+    <div class="filter">
+      <p>Filter by ...</p>
+      <ul class="categ">
+        
+        <li>Module
+           <ul><% logs.forEach(function(log) {%>
+              <li><%= log.module_name %></li>
+              <% }) %>
+           </ul>
+        </li>
+        <li>Time
+            <ul>
+              <li>Day</li>
+              <li>Week</li>
+              <li>Month</li>
+              <li>Year</li>
+            </ul>
+        </li>
+        <li>Description
+            <ul><% logs.forEach(function(log) { %>
+              <li><%= log.description %></li>
+              <% }) %>
+            </ul>
+        </li>
+        <li>Username
+            <ul><% logs.forEach(function(log) { %>
+              <li><%= log.User.username  %></li>
+              <% }) %>
+            </ul>
+        </li>
+         
+      </ul>
+    </div>
     <div class="row">
       <div class="col-lg-12">
        <div class="table-responsive">
@@ -26,7 +59,6 @@
                   <td><%= log.module_name %></td>
                   <td><%= log.timestamp %></td>
                   <td><%= log.description %></td>
-                  <td><%= log.user_id %></td>
                   <td><%= log.User.username  %></td>
                 </tr>
               <% }) %>
