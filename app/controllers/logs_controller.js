@@ -12,16 +12,13 @@ LogsController.show = function(){
 
     var this_ = this;
 
-    // var userRef= this.param('userRef');
-    // var descriptionRef = this.param('descriptionRef');
+    // these variables come from the url
     var moduleRef = this.param('moduleRef')
-
-    // var userID = this.param('userID');
-    // var description = this.param('description');
     var moduleName = this.param('moduleName');
 
     var searchJson = {};
 
+    //this checks whether a module exists. This is where new filter columns need to be added
     if(typeof moduleName != undefined){
       switch(moduleRef){
         case 'module_name':
@@ -34,14 +31,13 @@ LogsController.show = function(){
         searchJson.where = { 'description': moduleName };
           break;
         default:
-          searchJson.where = { moduleRef : moduleName };
           break;
 
       }
     }
-      // searchJson.where = { moduleRef : moduleName };
+     
       
-
+    //show logs that match filter criteria above
     Log.findAll(searchJson)
     .success(function(logs) {
       var syncronisationsComplete = 0;
@@ -67,9 +63,8 @@ LogsController.show = function(){
 
 LogsController.index = function() {
   var this_ = this;
-    // Load logs
-    // this.current_user = this.req.user ;
-    
+   
+    //create a filter search dynamically with no duplicates
     var onSelectComplete = function(logs) {
       var uniqueLogs = {};
 
@@ -87,12 +82,10 @@ LogsController.index = function() {
 
       })
 
-      // console.log(uniqueLogs);
-
       this_.render({'logs' : logs, 'uniqueLogs' : uniqueLogs});
     }
 
-    
+    //retrieve all logs and log searchables
     Log.findAll()
     .success(function(logs) {
       var syncronisationsComplete = 0;
@@ -115,6 +108,7 @@ LogsController.index = function() {
 
 };
 
-// LogsController.before('*', login.ensureLoggedIn('/login'));
+//this is the security redirect
+LogsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = LogsController;

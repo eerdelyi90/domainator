@@ -4,6 +4,7 @@ module.exports = function routes() {
   // home page
   this.match('/', 'account#show');
 
+  // Account resources
   this.resource('account');
   this.match('login', 'account#loginForm', { via: 'get' });
   this.match('login', 'account#login', { via: 'post' });
@@ -19,11 +20,10 @@ module.exports = function routes() {
   this.match('domains/alerts', 'domains#alerts');
   this.resources('domains');
 
+  // ':' prior to a link turns it into a variable for the controller
+  // Domain related routes
   this.match('logs/:moduleRef/:moduleName', 'logs#show');
-  // this.match('logs/:userRef/:userID', 'logs#show');
-  //   this.match('logs/:descriptionRef/:description', 'logs#show');
-
   this.resources('logs')
-  // this.match('logs/account', 'logs#account');
+  
 }
 
