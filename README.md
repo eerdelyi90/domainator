@@ -1,0 +1,4 @@
+domainator
+==========
+
+locomotive-sequelize application 
