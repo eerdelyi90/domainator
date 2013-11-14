@@ -8,8 +8,38 @@ var LogsController = new Controller();
 var login           = require('connect-ensure-login');
 
 
-LogsController.p_generate = function(){
-var this_ = this;
+LogsController.show = function(){
+
+    var this_ = this;
+
+    var moduleName = this.param('moduleName');
+    var userID = this.param('userID');
+
+    var searchJson = {};
+
+    if(typeof moduleName != undefined)
+      searchJson.where = { 'module_name': moduleName };
+
+    Log.findAll(searchJson)
+    .success(function(logs) {
+      var syncronisationsComplete = 0;
+      logs.forEach(function(log, index){
+        log.getUser().success(function(user){
+          logs[index].User = user;
+          ++syncronisationsComplete;
+          if(syncronisationsComplete == logs.length) {
+
+           this_.render({'logs' : logs});
+
+          }
+        });
+      });
+
+    })   
+    .error(function(error) {
+      this_.next(error);
+    });
+
 
 }
 
@@ -21,16 +51,6 @@ LogsController.index = function() {
     var onSelectComplete = function(logs) {
       var uniqueLogs = {};
 
-      // Loop though alll,
-      //  Loop through all
-      //    Assign key to object key and item to array if not already exists
-      //    
-      // uniqueLogs= {
-      //  module: [],
-      //  time: [],
-      //  description: []
-      // }
-      
       var filterBy = ['module_name', 'user_id', 'description'];
 
       filterBy.forEach(function(fieldName){
@@ -45,7 +65,7 @@ LogsController.index = function() {
 
       })
 
-      console.log(uniqueLogs);
+      // console.log(uniqueLogs);
 
       this_.render({'logs' : logs, 'uniqueLogs' : uniqueLogs});
     }
@@ -70,20 +90,7 @@ LogsController.index = function() {
     .error(function(error) {
       this_.next(error);
     });
-    // User.findAll()
-    // .success(function(users) {
 
-    //    Domain.findAll()
-    //    .success(function(domains) {
-    //       this_.render({ domains : domains , users : users  });
-    //    })
-    //  .error(function(error) {
-    //     this_.next(error);
-    //   });
-    // })
-    // .error(function(error) {
-    //   this_.next(error);
-    // });
 };
 
 // LogsController.before('*', login.ensureLoggedIn('/login'));

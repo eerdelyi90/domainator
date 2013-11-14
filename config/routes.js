@@ -19,6 +19,9 @@ module.exports = function routes() {
   this.match('domains/alerts', 'domains#alerts');
   this.resources('domains');
 
-  this.resources('logs');
+  this.match('logs/module-search/:moduleName', 'logs#show');
+  this.match('logs/user-search/:userID', 'logs#show');
+  this.resources('logs')
+  // this.match('logs/account', 'logs#account');
 }
 

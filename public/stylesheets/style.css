@@ -6,3 +6,55 @@ body {
 a {
   color: #00B7FF;
 }
+.filter{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid #D4CCC5;
+	/*border-bottom: 1px solid #D4CCC5;*/
+	
+}
+/*.filter p{
+	display: inline-block;
+	float: left;
+}
+.categ{
+	float: left;
+	list-style: none;
+	margin: 0 auto 10px;
+
+}
+.categ li{
+	float: left;
+	margin: 0 auto ;
+	margin-top: 10px;
+	margin-right: 5px;
+	padding: 5px;
+	border:1px solid #D4CCC5;
+	background-color: #fff;
+	cursor: pointer;
+	z-index: 999;
+
+}
+.main{
+	float: left;
+	list-style: none;
+	margin: 0 auto 10px;
+}
+.main>li{
+	float: left;
+	margin: 0 auto ;
+	padding: 5px;
+
+
+	border:1px solid #D4CCC5;
+	background-color: #f3f3f3;
+}
+
+
+.clearfix{
+	clear: both;
+}
+
+.logs{
+	margin-top: 10px;
+}*/
