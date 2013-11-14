@@ -12,13 +12,35 @@ LogsController.show = function(){
 
     var this_ = this;
 
+    // var userRef= this.param('userRef');
+    // var descriptionRef = this.param('descriptionRef');
+    var moduleRef = this.param('moduleRef')
+
+    // var userID = this.param('userID');
+    // var description = this.param('description');
     var moduleName = this.param('moduleName');
-    var userID = this.param('userID');
 
     var searchJson = {};
 
-    if(typeof moduleName != undefined)
-      searchJson.where = { 'module_name': moduleName };
+    if(typeof moduleName != undefined){
+      switch(moduleRef){
+        case 'module_name':
+        searchJson.where = { 'module_name': moduleName };
+          break;
+        case 'user_id':
+        searchJson.where = { 'user_id': moduleName };
+          break;
+        case 'description':
+        searchJson.where = { 'description': moduleName };
+          break;
+        default:
+          searchJson.where = { moduleRef : moduleName };
+          break;
+
+      }
+    }
+      // searchJson.where = { moduleRef : moduleName };
+      
 
     Log.findAll(searchJson)
     .success(function(logs) {

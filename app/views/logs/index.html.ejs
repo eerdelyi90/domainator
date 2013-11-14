@@ -18,7 +18,7 @@
            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><%= moduleName.prettify() %></button>
              <ul class="dropdown-menu" role="menu">
               <% uniqueLogs[moduleName].forEach(function(logValue, logIndex) { %>
-                <li><a href="/logs/<%= logValue.toString() %>"><%= logValue.toString().prettify() %></a></li>
+                <li><a href="/logs/<%= moduleName %>/<%= logValue.toString() %>"><%= logValue.toString().prettify() %></a></li>
               <% }) %>
             </ul>
           </div>
