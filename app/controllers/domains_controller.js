@@ -102,7 +102,7 @@ DomainsController.update = function() {
   var params  = this.req.body;
   var path    = this.domainsPath();
   // console.log("PARAMS", params);
-    var params2 = {
+  var params2 = {
     module_name     : 'domains',
     module_event_id : this_.req.user.id,
     user_id         : this_.req.user.id,
