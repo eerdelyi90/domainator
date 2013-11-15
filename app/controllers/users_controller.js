@@ -96,13 +96,14 @@ UsersController.update = function() {
     .success(function(user) {
       user.updateAttributes(params)
         .success(function() {
+          console.log(params);
             var params2 = {
               module_name     : 'users',
               module_event_id : user.id,
               user_id         : this_.req.user.id,
               timestamp       : new Date(),
               description     : 'updated',
-              change          : this.req.body
+              change          : params.username +' '+ params.firstname + ' '+ params.lastname
             };
 
             Log.create(params2)

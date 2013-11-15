@@ -1,190 +1,207 @@
 <% var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");%>
-<div class="control-group">
-  <label class="control-label">Registrar</label>
-  <div class="controls">
-    <input type="text" name="registrar" placeholder="Registrar"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Registrar</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="registrar" placeholder="Registrar"
       value="<%= domain.registrar || ''  %>"
       required
     >
   </div>
+  
 </div>
-<!-- <div class="control-group">
-  <label class="control-label">Action</label>
-  <div class="controls">
-    <input type="text" name="action" placeholder="Action"
+<!-- <div class="form-group">
+  <label class="col-sm-2 control-label">Action</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="action" placeholder="Action"
       value="<%= domain.action || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Renewed</label>
-  <div class="controls">
-    <input type="text" name="renewed" placeholder="Renewed"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Renewed</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="renewed" placeholder="Renewed"
       value="<%= domain.renewed || '' %>"
       required
     >
+    </div>
   </div>
 </div> -->
-<div class="control-group">
-  <label class="control-label">Client</label>
-  <div class="controls">
-    <input type="text" name="client" placeholder="Price"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Client</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="client" placeholder="Price"
       value="<%= domain.client || '' %>"
       required
     >
   </div>
-<div class="control-group">
-  <label class="control-label">Price</label>
-  <div class="controls">
-    <input type="number" name="price" placeholder="Price"
+  </div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Price</label>
+  
+    <div class="col-sm-10"><input type="number"  class="form-control" name="price" placeholder="Price"
       value="<%= domain.price || '' %>"
       required
     >
   </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Domain</label>
-  <div class="controls">
-    <input type="text" name="domain" placeholder="Domain"
+  </div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Domain</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="domain" placeholder="Domain"
       value="<%= domain.domain || '' %>"
       required
     >
   </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Expiry</label>
-  <div class="controls">
-    <input type="date" name="expiry" placeholder="Expiry"
+  </div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Expiry</label>
+  
+    <div class="col-sm-10"><input type="date"  class="form-control" name="expiry" placeholder="Expiry"
       value="<%= domain.expiry || '' %>"
       required
     >
   </div>
-</div>
-<div class="control-group">
-  <label class="control-label">Renew For</label>
-  <div class="controls">
-    <input type="number" name="renew" placeholder="1"
+  </div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Renew For</label>
+  
+    <div class="col-sm-10"><input type="number"   class="form-control" name="renew" placeholder="1"
       value="<%= domain.renew || '' %>"
       required
     >
   </div>
+
 </div>
-<!-- <div class="control-group">
-  <label class="control-label">Registrant</label>
-  <div class="controls">
-    <input type="text" name="registrant" placeholder="registrant"
+<!-- <div class="form-group">
+  <label class="col-sm-2 control-label">Registrant</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="registrant" placeholder="registrant"
       value="<%= domain.registrant || '' %>"
       required
     >
+    </div>
   </div> -->
 <!-- </div>
-<div class="control-group">
-  <label class="control-label">Registrant Email</label>
-  <div class="controls">
-    <input type="text" name="registrant_email" placeholder="Registrant Email"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Registrant Email</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="registrant_email" placeholder="Registrant Email"
       value="<%= domain.registrant_email || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Contact Name</label>
-  <div class="controls">
-    <input type="text" name="contact_name" placeholder="Contact Name"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Contact Name</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="contact_name" placeholder="Contact Name"
       value="<%= domain.contact_name || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Address 1</label>
-  <div class="controls">
-    <input type="text" name="address1" placeholder="Address 1"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Address 1</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="address1" placeholder="Address 1"
       value="<%= domain.address1 || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Address 2</label>
-  <div class="controls">
-    <input type="text" name="address2" placeholder="Address 2"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Address 2</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="address2" placeholder="Address 2"
       value="<%= domain.address2 || '' %>"
     >
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Address 3</label>
-  <div class="controls">
-    <input type="text" name="address3" placeholder="Address 3"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Address 3</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="address3" placeholder="Address 3"
       value="<%= domain.address3 || '' %>"
     >
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">City</label>
-  <div class="controls">
-    <input type="text" name="city" placeholder="City"
+<div class="form-group">
+  <label class="col-sm-2 control-label">City</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="city" placeholder="City"
       value="<%= domain.city || '' %>"
     >
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">County</label>
-  <div class="controls">
-    <input type="text" name="county" placeholder="County"
+<div class="form-group">
+  <label class="col-sm-2 control-label">County</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="county" placeholder="County"
       value="<%= domain.county || '' %>"
     >
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Postcode</label>
-  <div class="controls">
-    <input type="text" name="postcode" placeholder="Postcode"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Postcode</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="postcode" placeholder="Postcode"
       value="<%= domain.postcode || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">Country</label>
-  <div class="controls">
-    <input type="text" name="country" placeholder="Country"
+<div class="form-group">
+  <label class="col-sm-2 control-label">Country</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="country" placeholder="Country"
       value="<%= domain.country || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">DNS0</label>
-  <div class="controls">
-    <input type="text" name="DNS0" placeholder="DNS0"
+<div class="form-group">
+  <label class="col-sm-2 control-label">DNS0</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="DNS0" placeholder="DNS0"
       value="<%= domain.DNS0 || '' %>"
       required
     >
+    </div>
   </div>
 </div>
-<div class="control-group">
-  <label class="control-label">DNS1</label>
-  <div class="controls">
-    <input type="text" name="DNS1" placeholder="DNS1"
+<div class="form-group">
+  <label class="col-sm-2 control-label">DNS1</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="DNS1" placeholder="DNS1"
       value="<%= domain.DNS1 || '' %>"
       required
     >
+    </div>
   </div>
 </div>
 
-<div class="control-group">
-  <label class="control-label">DNS2</label>
-  <div class="controls">
-    <input type="text" name="DNS2" placeholder="DNS2"
+<div class="form-group">
+  <label class="col-sm-2 control-label">DNS2</label>
+  
+    <div class="col-sm-10"><input type="text" class="form-control" name="DNS2" placeholder="DNS2"
       value="<%= domain.DNS2 || '' %>"
     >
   </div>
 </div> -->
-<div class="control-group">
-  <div class="controls">
-    <button type="submit" class="save btn btn-small btn-success">Save Domain</button>
-  </div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="save btn btn-small btn-success">Save Domain</button>
+    </div>
 </div>
