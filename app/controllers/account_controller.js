@@ -26,7 +26,8 @@ AccountController.show = function() {
     module_event_id : this.req.user.id,
     user_id         : this.req.user.id,
     timestamp       : new Date(),
-    description     : 'login'
+    description     : 'login',
+    change          : 'none'
   };
   Log.create(params)
   .success(function(log) {
@@ -63,7 +64,8 @@ AccountController.logout = function() {
     module_event_id : this_.req.user.id,
     user_id         : this_.req.user.id,
     timestamp       : new Date(),
-    description     : 'logout'
+    description     : 'logout',
+    change          : 'none'
   };
 
   Log.create(params2)

@@ -30,6 +30,12 @@ LogsController.show = function(){
         case 'description':
         searchJson.where = { 'description': moduleName };
           break;
+           case 'module_event_id':
+        searchJson.where = { 'module_event_id': moduleName };
+          break;
+           case 'change':
+        searchJson.where = { 'change': moduleName };
+          break;
         default:
           break;
 
@@ -68,7 +74,7 @@ LogsController.index = function() {
     var onSelectComplete = function(logs) {
       var uniqueLogs = {};
 
-      var filterBy = ['module_name', 'user_id', 'description'];
+      var filterBy = ['module_name', 'user_id', 'description','module_event_id','change'];
 
       filterBy.forEach(function(fieldName){
          uniqueLogs[fieldName] = [];

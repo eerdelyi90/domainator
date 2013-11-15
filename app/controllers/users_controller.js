@@ -34,23 +34,7 @@ UsersController.create = function() {
   var params  = this.req.body;
   var path    = this.usersPath();
 
-    var params2 = {
-    module_name     : 'users',
-    module_event_id : this_.req.user.id,
-    user_id         : this_.req.user.id,
-    timestamp       : new Date(),
-    description     : 'created'
-  };
-
-  Log.create(params2)
-    .success(function(){
-
-
-  })
-    .error(function(error) {
-      this_.req.flash('error', 'Something went wrong! ' + error);
-      // this_.redirect(path);
-    }); 
+ 
 
   // Encrypt us some pazzw0rfd
   params.password = bcrypt.hashSync(params.password);
@@ -58,6 +42,24 @@ UsersController.create = function() {
 
   User.create(params)
     .success(function(user) {
+         var params2 = {
+          module_name     : 'users',
+          module_event_id : this_.req.user.id,
+          user_id         : this_.req.user.id,
+          timestamp       : new Date(),
+          description     : 'created',
+          change          : 'all'
+        };
+
+        Log.create(params2)
+          .success(function(){
+
+
+        })
+          .error(function(error) {
+            this_.req.flash('error', 'Something went wrong! ' + error);
+            // this_.redirect(path);
+          }); 
       this_.req.flash('success', 'New user was created!');
       this_.redirect(path);
     })
@@ -88,28 +90,30 @@ UsersController.update = function() {
   params.password = bcrypt.hashSync(params.password);
 
   // console.log(params);
-  var params2 = {
-    module_name     : 'users',
-    module_event_id : this_.req.user.id,
-    user_id         : this_.req.user.id,
-    timestamp       : new Date(),
-    description     : 'updated'
-  };
 
-  Log.create(params2)
-    .success(function(){
-
-
-  })
-    .error(function(error) {
-      this_.req.flash('error', 'Something went wrong! ' + error);
-      // this_.redirect(path);
-    }); 
 
   User.find(this.param('id'))
     .success(function(user) {
       user.updateAttributes(params)
         .success(function() {
+            var params2 = {
+              module_name     : 'users',
+              module_event_id : user.id,
+              user_id         : this_.req.user.id,
+              timestamp       : new Date(),
+              description     : 'updated',
+              change          : this.req.body
+            };
+
+            Log.create(params2)
+              .success(function(){
+
+
+            })
+              .error(function(error) {
+                this_.req.flash('error', 'Something went wrong! ' + error);
+                // this_.redirect(path);
+              }); 
           this_.req.flash('success', 'User was updated!');
           this_.redirect(path);
         })
@@ -129,12 +133,17 @@ UsersController.destroy = function(req, res){
   var this_   = this;
   var id    = this.param('id');
 
+
+  User.find(id)
+  .success(function(user) {
+
     var params2 = {
     module_name     : 'users',
-    module_event_id : this_.req.user.id,
+    module_event_id : user.id,
     user_id         : this_.req.user.id,
     timestamp       : new Date(),
-    description     : 'deleted'
+    description     : 'deleted',
+    change          : 'all'
   };
 
   Log.create(params2)
@@ -146,9 +155,6 @@ UsersController.destroy = function(req, res){
       this_.req.flash('error', 'Something went wrong! ' + error);
       // this_.redirect(path);
     }); 
-
-  User.find(id)
-  .success(function(user) {
       // now i'm gone :)
       this_.req.flash('success', 'User was deleted!');
       user.destroy();

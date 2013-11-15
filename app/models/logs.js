@@ -11,7 +11,8 @@ module.exports = function(sequelize, Sequelize) {
             referencesKey: "id"
         },
         timestamp        : Sequelize.DATE,
-        description      : Sequelize.STRING
+        description      : Sequelize.STRING,
+        change           : Sequelize.STRING
     });
 
     Log.belongsTo(User, { foreignKey: 'user_id' });

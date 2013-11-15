@@ -53,27 +53,29 @@ DomainsController.create = function() {
   var params  = this.req.body;
   var path    = this.domainsPath();
 
-  var params2 = {
-  module_name     : 'domains',
-  module_event_id : this_.req.user.id,
-  user_id         : this_.req.user.id,
-  timestamp       : new Date(),
-  description     : 'created'
-  };
-
-
-  Log.create(params2)
-    .success(function(){
-
-
-  })
-    .error(function(error) {
-      this_.req.flash('error', 'Something went wrong! ' + error);
-      // this_.redirect(path);
-    }); 
+  
 
   Domain.create(params)
     .success(function(domain) {
+      var params2 = {
+      module_name     : 'domains',
+      module_event_id : domain.id,
+      user_id         : this_.req.user.id,
+      timestamp       : new Date(),
+      description     : 'created',
+      change          : 'all'
+      };
+
+
+      Log.create(params2)
+        .success(function(){
+
+
+      })
+        .error(function(error) {
+          this_.req.flash('error', 'Something went wrong! ' + error);
+          // this_.redirect(path);
+        }); 
       this_.req.flash('success', 'New Domain was created!');
       this_.redirect(path);
     })
@@ -101,28 +103,30 @@ DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.domainsPath();
-  // console.log("PARAMS", params);
-  var params2 = {
-    module_name     : 'domains',
-    module_event_id : this_.req.user.id,
-    user_id         : this_.req.user.id,
-    timestamp       : new Date(),
-    description     : 'updated'
-  };
-
-  Log.create(params2)
-    .success(function(){
-
-
-  })
-    .error(function(error) {
-      this_.req.flash('error', 'Something went wrong! ' + error);
-      // this_.redirect(path);
-    });  
+ 
   Domain.find(this.param('id'))
     .success(function(domain) {
       domain.updateAttributes(params)
         .success(function() {
+            // console.log("PARAMS", params);
+            var params2 = {
+              module_name     : 'domains',
+              module_event_id : domain.id,
+              user_id         : this_.req.user.id,
+              timestamp       : new Date(),
+              description     : 'updated',
+              change          :  this.req.body
+            };
+
+            Log.create(params2)
+              .success(function(){
+
+
+            })
+              .error(function(error) {
+                this_.req.flash('error', 'Something went wrong! ' + error);
+                // this_.redirect(path);
+              }); 
           this_.req.flash('success', 'Domain was updated!');
 
           this_.redirect(path);
@@ -145,12 +149,17 @@ DomainsController.destroy = function(){
   var this_   = this;
   var id    = this.param('id');
 
-  var params2 = {
+  
+
+  Domain.find(id)
+  .success(function(domain) {
+    var params2 = {
     module_name     : 'domains',
-    module_event_id : this_.req.user.id,
+    module_event_id : domain.id,
     user_id         : this_.req.user.id,
     timestamp       : new Date(),
-    description     : 'deleted'
+    description     : 'deleted',
+    change          :  'all'
   };
 
   Log.create(params2)
@@ -162,9 +171,6 @@ DomainsController.destroy = function(){
       this_.req.flash('error', 'Something went wrong! ' + error);
       // this_.redirect(path);
     }); 
-
-  Domain.find(id)
-  .success(function(domain) {
       // now i'm gone :)
       this_.req.flash('success', 'Domain was deleted!');
       domain.destroy();
@@ -217,6 +223,25 @@ DomainsController.alerts = function(){
           if(!error){
               console.log(responseStatus.message); // response from the server
               console.log(responseStatus.messageId); // Message-ID value used
+
+                   var params2 = {
+                    module_name     : 'cron_alert',
+                    module_event_id : domain.id,
+                    user_id         : 1,
+                    timestamp       : new Date(),
+                    description     : 'renewal',
+                    change          : domain.domain
+                  };
+
+                  Log.create(params2)
+                    .success(function(){
+
+
+                  })
+                    .error(function(error) {
+                     this_.req.flash('error', 'Something went wrong! ' + error);
+                    // this_.redirect(path);
+                   }); 
           }
       });
 

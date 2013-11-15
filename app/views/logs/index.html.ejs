@@ -34,6 +34,8 @@
           <table class="table table-bordered table-hover tablesorter">
             <thead>
               <th>Module Name<i class="icon-sort"></i></th>
+              <th>Unit Id<i class="icon-sort"></i></th>
+              <th>Change Made<i class="icon-sort"></i></th>
               <th>Timestamp<i class="icon-sort"></i></th>
               <th>Description<i class="icon-sort"></i></th>
               <th>Updated By<i class="icon-sort"></i></th>
@@ -43,6 +45,8 @@
 
                 <tr>
                   <td><%= log.module_name %></td>
+                  <td><%= log.module_event_id %></td>
+                  <td><%= log.change %></td>
                   <td><%= log.timestamp %></td>
                   <td><%= log.description %></td>
                   <td><%= log.User.username  %></td>
