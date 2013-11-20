@@ -43,11 +43,12 @@
             <tbody>
               <% logs.forEach(function(log) { %>
 
+
                 <tr>
                   <td><%= log.module_name %></td>
                   <td><%= log.module_event_id %></td>
                   <td><%= log.change %></td>
-                  <td><%= log.timestamp %></td>
+                  <td><%= log.timestamp.format()  %></td>
                   <td><%= log.description %></td>
                   <td><%= log.User.username  %></td>
                 </tr>

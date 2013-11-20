@@ -33,57 +33,21 @@
               <table class="table table-bordered table-hover tablesorter ">
                <thead>
                     <th>Registrar <i class="icon-sort"></i></th>
-                   <!--   <th>action<i class="icon-sort"></i></th>
-                     <th>renewed<i class="icon-sort"></i></th> -->
                      <th>Client <i class="icon-sort"></i></th>
                      <th>Price <i class="icon-sort"></i></th>
                      <th>Domain <i class="icon-sort"></i></th>
                      <th>Expiry <i class="icon-sort"></i></th>
                      <th>Renew For <i class="icon-sort"></i></th>
-                  <!--    <th>registrant<i class="icon-sort"></i></th>
-                     <th>registrant_email<i class="icon-sort"></i></th>
-                     <th>contact_name<i class="icon-sort"></i></th>
-                     <th>address1<i class="icon-sort"></i></th>
-                     <th>address2<i class="icon-sort"></i></th>
-                     <th>address3<i class="icon-sort"></i></th>
-                     <th>city<i class="icon-sort"></i></th>
-                     <th>county<i class="icon-sort"></i></th>
-                     <th>postcode<i class="icon-sort"></i></th>
-                     <th>country<i class="icon-sort"></i></th>
-                     <th>DNS0<i class="icon-sort"></i></th>
-                     <th>DNS1<i class="icon-sort"></i></th>
-                     <th>DNS2<i class="icon-sort"></i></th> -->
                </thead>
                <tbody>
                  <% domains.forEach(function(domain) { %>
                    <tr>
                      <td><%= domain.registrar %></td>
-                    
-                     <!-- 
-                     <td><%= domain.action %></td>
-                     <td><%= domain.renewed %></td>
-                      -->
                      <td><%= domain.client %></td>
-                     <td>£ <%= domain.price %></td>
-                     
+                     <td>£ <%= domain.price %></td> 
                      <td><%= domain.domain %></td>
-                     <td><%= domain.expiry %></td>
-                     <td><%= domain.renew %> years</td>
-                     <!--
-                     <td><%= domain.registrant %></td>
-                     <td><%= domain.registrant_email %></td>
-                     <td><%= domain.contact_name %></td>
-                     <td><%= domain.address1 %></td>
-                     <td><%= domain.address2 %></td>
-                     <td><%= domain.address3 %></td>
-                     <td><%= domain.city %></td>
-                     <td><%= domain.county %></td>
-                     <td><%= domain.postcode %></td>
-                     <td><%= domain.country %></td>
-                     <td><%= domain.DNS0 %></td>
-                     <td><%= domain.DNS1 %></td>
-                     <td><%= domain.DNS2 %></td>
-                     -->
+                     <td><%= domain.expiry.format()  %></td>
+                     <td><%= domain.renew %> years</td>            
                      <td><a href="<%= editDomainPath(domain.id) %>" class="btn btn-inverse">Edit</a></td>
                      <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse delete-domain-path">Delete</a></td>
                    </tr>

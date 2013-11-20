@@ -115,7 +115,7 @@ DomainsController.update = function() {
               user_id         : this_.req.user.id,
               timestamp       : new Date(),
               description     : 'updated',
-              change          :  this.req.body
+              change          :  this_.req.body
             };
 
             Log.create(params2)

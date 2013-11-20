@@ -4,5 +4,14 @@ String.prototype.prettify = function() {
 
 }
 
+Date.prototype.format = function(){
+                    
+                    var year   = this.getFullYear();
+                    var month  = this.getMonth();
+                    var day    = this.getDate();
+                    var date   = day + '/'+ month + '/' + year;
+                   
+                    return date ;
+}
 module.exports = function() {
 };

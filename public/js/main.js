@@ -36,6 +36,8 @@ var generatePassword = function(elem){
 
 
 
+
+
 $(document).ready(function(){
 
     $('.delete-domain-path').click(function(){

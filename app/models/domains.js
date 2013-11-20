@@ -6,7 +6,7 @@ module.exports = function(sequelize, Sequelize) {
   	renewed           : Sequelize.DATE,
   	price             : Sequelize.DECIMAL(10, 2),
     domain            : Sequelize.STRING,
-    expiry            : Sequelize.DATETIME,
+    expiry            : Sequelize.DATE,
     renew             : Sequelize.INTEGER,
     registrant        : Sequelize.STRING,
     registrant_email  : Sequelize.STRING,
