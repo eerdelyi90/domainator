@@ -11,7 +11,7 @@ var deleteItem = function(id, path) {
   });
 }
 
-var generatePassword = function(elem){
+var generatePassword = function(){
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
   var string_length = 8;
   var randomstring = '';
@@ -39,11 +39,23 @@ var generatePassword = function(elem){
 
 
 $(document).ready(function(){
-
+  var pass = '';
+  $('.generate').click(function(){
+    pass = generatePassword();
+     console.log(pass);
+     $('.password').val(pass);
+    });
     $('.delete-domain-path').click(function(){
       deleteItem(
         $(this).attr('data-id'), 'domains');
       $(this).parents('tr').remove();
+    });
+
+    $('.invoiced-domain-path').click(function(){
+    });
+    $('.paid-domain-path').click(function(){
+    });
+    $('.renewed-domain-path').click(function(){
     });
 
     $('.delete-user-path').click(function(){

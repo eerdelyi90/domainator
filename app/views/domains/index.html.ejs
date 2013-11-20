@@ -34,26 +34,34 @@
                <thead>
                     <th>Registrar <i class="icon-sort"></i></th>
                      <th>Client <i class="icon-sort"></i></th>
-                     <th>Price <i class="icon-sort"></i></th>
+                     <th>Price Per Year <i class="icon-sort"></i></th>
                      <th>Domain <i class="icon-sort"></i></th>
-                     <th>Expiry <i class="icon-sort"></i></th>
+                     <th>Expiry Date <i class="icon-sort"></i></th>
                      <th>Renew For <i class="icon-sort"></i></th>
                </thead>
                <tbody>
-                 <% domains.forEach(function(domain) { %>
+                 <% domains.forEach(function(domain) { 
+                    var now      = new Date();
+                    now          = now.setMonth(now.getMonth()+1);
+                    var  expdate = Math.floor((domain.expiry-now)/(1000*60*60*24));
+
+                  %>
+
                    <tr>
                      <td><%= domain.registrar %></td>
                      <td><%= domain.client %></td>
                      <td>£ <%= domain.price %></td> 
                      <td><%= domain.domain %></td>
-                     <td><%= domain.expiry.format()  %></td>
+                     <td><%= domain.expiry.format() + ' ('+ expdate+')' %></td>
                      <td><%= domain.renew %> years</td>            
                      <td><a href="<%= editDomainPath(domain.id) %>" class="btn btn-inverse">Edit</a></td>
                      <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse delete-domain-path">Delete</a></td>
+                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse invoiced-domain-path">Invoiced <input type="checkbox" name="vehicle" value="Invoiced"></a></td>
+                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse paid-domain-path">Paid <input type="checkbox" name="vehicle" value="Paid"></a></td>
+                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse renewed-domain-path">Renewed <input type="checkbox" name="vehicle" value="Renewed"></a></td>
                    </tr>
                  <% }) %>
-               </tbody>
-               
+               </tbody>   
          </table>
        </div>
        </div>
