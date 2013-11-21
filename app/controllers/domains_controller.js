@@ -54,9 +54,7 @@ var this_ = this;
 
    Domain.find(id)
   .success(function(domain) {
-    domain.invoiced;
-    domain.paid;
-    domain.renewed;
+ 
   })
   .error(function(error) {
     this_.next(error);

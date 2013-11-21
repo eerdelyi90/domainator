@@ -13,5 +13,15 @@ Date.prototype.format = function(){
                    
                     return date ;
 }
+
+Date.prototype.formatBoot = function(){
+                    
+                    var year   = this.getFullYear();
+                    var month  = this.getMonth()+1;
+                    var day    = this.getDate();
+                    var date   = year + '-'+ month + '-' + day;
+                   
+                    return date ;
+}
 module.exports = function() {
 };
