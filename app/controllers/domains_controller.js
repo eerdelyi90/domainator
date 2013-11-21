@@ -51,6 +51,11 @@ DomainsController.new = function() {
 DomainsController.quickedit = function(){
 
 var this_ = this;
+var self = this;
+this.respond({
+  'json': function() { self.res.json({ hello: 'world' , sup: 'nm'}); },
+  default: function() { self.render(); }
+})
 
    Domain.find(id)
   .success(function(domain) {

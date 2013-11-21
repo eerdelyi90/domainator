@@ -3,29 +3,43 @@ var deleteItem = function(id, path) {
     url: '/'+path+'/'+id,
     type: 'delete',
     success: function(data){
-      
+      alert('yeahahaha');
     },
     error: function(a, b, c) {
       console.log(a, b, c);
     }
   });
 }
-var invoiceItem = function(id, path) {
+var invoiceItem = function( path) {
   $.ajax({
-    url: '/'+path+'/'+id,
+    url: '/'+path+'/quickedit',
+    type: 'post',
     success: function(data){
-      
+      alert('yeahahaha');
     },
     error: function(a, b, c) {
       console.log(a, b, c);
     }
   });
 }
-var paidItem = function(id, path) {
+var paidItem = function( path) {
   $.ajax({
-    url: '/'+path+'/'+id,
+     url: '/'+path+'/quickedit',
+     type:'post',
     success: function(data){
-      
+      alert('yeahahaha');
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
+}
+var renewedItem = function(path) {
+  $.ajax({
+     url: '/'+path+'/quickedit',
+     type:'post',
+    success: function(data){
+      alert('yeahahaha');
     },
     error: function(a, b, c) {
       console.log(a, b, c);
@@ -70,10 +84,13 @@ var dateChecked = function(domObj) {
   var now = new Date();
   now = now.format();
 
-  if(domObj.is(':checked'))
+  if(domObj.is(':checked')){
     domObj.siblings().html(' '+ now);
-  else
+  }
+  else{
     domObj.siblings().html(' ');
+    domObj.siblings('.rel').remove();
+  }
 
 
 }
@@ -102,14 +119,16 @@ $(document).ready(function(){
           $('.invoiced-date').unbind('click');
           $('.invoiced-date').click(function() {
             var _this = $(this);
-            $(this).after('<input type="date"  class="form-control invoiced-change">');
-            $('.invoiced-change').change(function() {
-              var date = new Date($('.invoiced-change').val());
+            $('.invoiced-change rel').remove();
+            $(this).after('<input type="date"  class="form-control invoiced-change rel">');
+            $('.invoiced-change rel').change(function() {
+              var date = new Date($('.invoiced-change rel').val());
               _this.html( '<span class="invoiced-date">'+ date.format() +'</span>');
-              $('.invoiced-change').remove();
+              $('.invoiced-change rel').remove();
             });
 
         });
+          // invoiceItem('domains');
     });
 
     $('.paid').click(function()
@@ -119,14 +138,15 @@ $(document).ready(function(){
       $('.paid-date').unbind('click');
       $('.paid-date').click(function() {
             var _this = $(this);
-            $(this).after('<input type="date"  class="form-control paid-change">');
-            $('.paid-change').change(function() {
-              var date = new Date($('.paid-change').val());
+            $('.paid-change rel').remove();
+            $(this).after('<input type="date"  class="form-control paid-change rel">');
+            $('.paid-change rel').change(function() {
+              var date = new Date($('.paid-change rel').val());
               _this.html( '<span class="paid-date">'+ date.format() +'</span>');
-              $('.paid-change').remove();
-            });
-
+              $('.paid-change rel').remove();
+            });      
         });
+      // paidItem('domains');
     });
 
      $('.renewed').click(function()
@@ -135,14 +155,16 @@ $(document).ready(function(){
              $('.renewed-date').unbind('click');
           $('.renewed-date').click(function() {
             var _this = $(this);
-            $(this).after('<input type="date"  class="form-control renewed-change">');
-            $('.renewed-change').change(function() {
-              var date = new Date($('.renewed-change').val());
+            $('.renewed-change rel').remove();
+            $(this).after('<input type="date"  class="form-control renewed-change rel">');
+            $('.renewed-change rel').change(function() {
+              var date = new Date($('.renewed-change rel').val());
               _this.html( '<span class="renewed-date">'+ date.format() +'</span>');
-              $('.renewed-change').remove();
+              $('.renewed-change rel').remove();
             });
 
         });
+          // renewedItem('domains');
     });
 
     $('.delete-user-path').click(function(){
