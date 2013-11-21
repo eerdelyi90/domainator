@@ -18,6 +18,7 @@ module.exports = function routes() {
 
   // Domain related routes
   this.match('domains/alerts', 'domains#alerts');
+  this.match('domains/quickedit', 'domains#quickedit', { via: 'post' });
   this.resources('domains');
 
   // ':' prior to a link turns it into a variable for the controller

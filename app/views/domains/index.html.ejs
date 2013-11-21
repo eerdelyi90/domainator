@@ -38,13 +38,18 @@
                      <th>Domain <i class="icon-sort"></i></th>
                      <th>Expiry Date <i class="icon-sort"></i></th>
                      <th>Renew For <i class="icon-sort"></i></th>
+                     <th></th>
+                     <th></th>
+                     <th>Invoiced</th>
+                     <th>Paid</th>
+                     <th>Renewed</th>
+               </thead>
                </thead>
                <tbody>
                  <% domains.forEach(function(domain) { 
                     var now      = new Date();
-                    now          = now.setMonth(now.getMonth()+1);
+                    now          = now.setMonth(now.getMonth());
                     var  expdate = Math.floor((domain.expiry-now)/(1000*60*60*24));
-
                   %>
 
                    <tr>
@@ -56,9 +61,20 @@
                      <td><%= domain.renew %> years</td>            
                      <td><a href="<%= editDomainPath(domain.id) %>" class="btn btn-inverse">Edit</a></td>
                      <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse delete-domain-path">Delete</a></td>
-                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse invoiced-domain-path">Invoiced <input type="checkbox" name="vehicle" value="Invoiced"></a></td>
-                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse paid-domain-path">Paid <input type="checkbox" name="vehicle" value="Paid"></a></td>
-                     <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse renewed-domain-path">Renewed <input type="checkbox" name="vehicle" value="Renewed"></a></td>
+
+                     <td>
+                      <input class="invoiced" type="checkbox"  value="Invoiced">
+                      <span class="invoiced-date"></span>
+                    </td>
+                     <td>
+                      <input class="paid" type="checkbox"  value="Paid">
+                      <span class="paid-date"></span>
+                    </td>
+                     <td>
+                      <input class="renewed" type="checkbox"  value="Renewed">
+                      <span class="renewed-date"></span>
+                    </td>
+
                    </tr>
                  <% }) %>
                </tbody>   

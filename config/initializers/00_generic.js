@@ -7,7 +7,7 @@ String.prototype.prettify = function() {
 Date.prototype.format = function(){
                     
                     var year   = this.getFullYear();
-                    var month  = this.getMonth();
+                    var month  = this.getMonth()+1;
                     var day    = this.getDate();
                     var date   = day + '/'+ month + '/' + year;
                    

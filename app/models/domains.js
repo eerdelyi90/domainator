@@ -4,6 +4,8 @@ module.exports = function(sequelize, Sequelize) {
   	action            : Sequelize.STRING,
     client            : Sequelize.STRING,
   	renewed           : Sequelize.DATE,
+    paid              : Sequelize.DATE,
+    invoiced          : Sequelize.DATE,
   	price             : Sequelize.DECIMAL(10, 2),
     domain            : Sequelize.STRING,
     expiry            : Sequelize.DATE,

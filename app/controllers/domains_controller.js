@@ -48,6 +48,22 @@ DomainsController.new = function() {
   this.render({ domain : {} });
 };
 
+DomainsController.quickedit = function(){
+
+var this_ = this;
+
+   Domain.find(id)
+  .success(function(domain) {
+    domain.invoiced;
+    domain.paid;
+    domain.renewed;
+  })
+  .error(function(error) {
+    this_.next(error);
+  });
+};
+
+
 DomainsController.create = function() {
   var this_   = this;
   var params  = this.req.body;
@@ -103,30 +119,37 @@ DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.domainsPath();
+
+  // Get what it looked like before
+  // Get what it looked like after
+  // Create a string with the fields that differ
  
   Domain.find(this.param('id'))
     .success(function(domain) {
+
+          var params2 = {
+            'module_name'     : 'domains',
+            'module_event_id' : domain.id,
+            'user_id'         : this_.req.user.id,
+            'timestamp'       : new Date(),
+            'description'     : 'updated',
+            'change'          :  domain.client
+          };
+
+          Log.create(params2)
+           .success(function(){
+
+
+          })
+          .error(function(error) {
+            this_.req.flash('error', 'Something went wrong! ' + error);
+          // this_.redirect(path);
+          }); 
+
       domain.updateAttributes(params)
         .success(function() {
             // console.log("PARAMS", params);
-            var params2 = {
-              module_name     : 'domains',
-              module_event_id : domain.id,
-              user_id         : this_.req.user.id,
-              timestamp       : new Date(),
-              description     : 'updated',
-              change          :  this_.req.body
-            };
-
-            Log.create(params2)
-              .success(function(){
-
-
-            })
-              .error(function(error) {
-                this_.req.flash('error', 'Something went wrong! ' + error);
-                // this_.redirect(path);
-              }); 
+      
           this_.req.flash('success', 'Domain was updated!');
 
           this_.redirect(path);
