@@ -56,6 +56,7 @@ this.respond({
   'json': function() { self.res.json({ hello: 'world' , sup: 'nm'}); },
   default: function() { self.render(); }
 })
+console.log("HAGgdsdhfhsdljdjdjdddddddddddddddddddddddddddddddddddddddddd",this.req.body);
 
    Domain.find(id)
   .success(function(domain) {

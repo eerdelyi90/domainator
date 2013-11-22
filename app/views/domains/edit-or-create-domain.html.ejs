@@ -63,7 +63,11 @@
   <label class="col-sm-2 control-label">Expiry</label>
   
     <div class="col-sm-10">
-       <% var date = domain.expiry.formatBoot().toString()  %>
+       <% 
+       if(domain.expiry != null){
+        var date = domain.expiry.formatBoot().toString();
+      } 
+      %>
       <input type="date"  class="form-control" name="expiry"
       value="<%= date || ''  %>"
       required

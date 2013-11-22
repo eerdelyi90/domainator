@@ -89,7 +89,7 @@ var dateChecked = function(domObj) {
   }
   else{
     domObj.siblings().html(' ');
-    domObj.siblings('.rel').remove();
+    domObj.siblings().remove('.invoiced-change','.paid-change','.renewed-change');
   }
 
 
@@ -119,16 +119,16 @@ $(document).ready(function(){
           $('.invoiced-date').unbind('click');
           $('.invoiced-date').click(function() {
             var _this = $(this);
-            $('.invoiced-change rel').remove();
-            $(this).after('<input type="date"  class="form-control invoiced-change rel">');
-            $('.invoiced-change rel').change(function() {
-              var date = new Date($('.invoiced-change rel').val());
+            $('.invoiced-change').remove();
+            $(this).after('<input type="date"  class="form-control invoiced-change">');
+            $('.invoiced-change').change(function() {
+              var date = new Date($('.invoiced-change').val());
               _this.html( '<span class="invoiced-date">'+ date.format() +'</span>');
-              $('.invoiced-change rel').remove();
+              $('.invoiced-change').remove();
             });
 
         });
-          // invoiceItem('domains');
+          invoiceItem('domains');
     });
 
     $('.paid').click(function()
@@ -138,15 +138,15 @@ $(document).ready(function(){
       $('.paid-date').unbind('click');
       $('.paid-date').click(function() {
             var _this = $(this);
-            $('.paid-change rel').remove();
-            $(this).after('<input type="date"  class="form-control paid-change rel">');
-            $('.paid-change rel').change(function() {
-              var date = new Date($('.paid-change rel').val());
+            $('.paid-change').remove();
+            $(this).after('<input type="date"  class="form-control paid-change">');
+            $('.paid-change').change(function() {
+              var date = new Date($('.paid-change').val());
               _this.html( '<span class="paid-date">'+ date.format() +'</span>');
-              $('.paid-change rel').remove();
+              $('.paid-change').remove();
             });      
         });
-      // paidItem('domains');
+      paidItem('domains');
     });
 
      $('.renewed').click(function()
@@ -155,16 +155,16 @@ $(document).ready(function(){
              $('.renewed-date').unbind('click');
           $('.renewed-date').click(function() {
             var _this = $(this);
-            $('.renewed-change rel').remove();
-            $(this).after('<input type="date"  class="form-control renewed-change rel">');
-            $('.renewed-change rel').change(function() {
-              var date = new Date($('.renewed-change rel').val());
+            $('.renewed-change').remove();
+            $(this).after('<input type="date"  class="form-control renewed-change">');
+            $('.renewed-change').change(function() {
+              var date = new Date($('.renewed-change').val());
               _this.html( '<span class="renewed-date">'+ date.format() +'</span>');
-              $('.renewed-change rel').remove();
+              $('.renewed-change').remove();
             });
 
         });
-          // renewedItem('domains');
+          renewedItem('domains');
     });
 
     $('.delete-user-path').click(function(){
