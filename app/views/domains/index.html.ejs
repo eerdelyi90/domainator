@@ -65,7 +65,7 @@
                      <td>
                       <input class="invoiced" type="checkbox"  value="Invoiced">
                        <% if(domain.invoiced != 'Invalid Date'  ){ %>
-                      <span class="invoiced-date"><%=  domain.invoiced %></span>
+                      <span class="invoiced-date"><%=  domain.invoiced.format() %></span>
                       <% } else{ %>
                       <span class="invoiced-date"></span>
                       <% } %>
@@ -74,7 +74,7 @@
                       
                       <input class="paid" type="checkbox"  value="Paid">
                       <% if(domain.paid != 'Invalid Date' ){ %>
-                      <span class="paid-date"><%=  domain.paid %></span>
+                      <span class="paid-date"><%=  domain.paid.format() %></span>
                       <% } else{ %>
                       <span class="paid-date"></span>
                       <% } %>
@@ -83,7 +83,7 @@
                      <td>
                       <input class="renewed" type="checkbox"  value="Renewed">
                        <% if(domain.renewed != 'Invalid Date'  ){ %>
-                      <span class="renewed-date"><%=  domain.renewed %></span>
+                      <span class="renewed-date"><%=  domain.renewed.format() %></span>
                       <% } else{ %>
                       <span class="renewed-date"></span>
                       <% } %>

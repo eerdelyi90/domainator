@@ -61,15 +61,17 @@ Date.prototype.format = function(){
 
 var dateChecked = function(domObj) {
 
-  var now = new Date();
-  now = now.format();
+  var now_unformat = new Date();
+  now = now_unformat.format();
 
   if(domObj.is(':checked')){
     domObj.siblings().html(' '+ now);
+    return now_unformat;
   }
   else{
     domObj.siblings().html(' ');
     domObj.siblings().remove('.invoiced-change','.paid-change','.renewed-change');
+    return null;
   }
 
 
@@ -94,7 +96,7 @@ $(document).ready(function(){
 
      $('.invoiced').click(function()
         {
-          dateChecked($(this));
+         var timestamp = dateChecked($(this));
 
           $('.invoiced-date').unbind('click');
           $('.invoiced-date').click(function() {
@@ -103,17 +105,20 @@ $(document).ready(function(){
             $(this).after('<input type="date"  class="form-control invoiced-change">');
             $('.invoiced-change').change(function() {
               var date = new Date($('.invoiced-change').val());
+              timestamp = date;
               _this.html( '<span class="invoiced-date">'+ date.format() +'</span>');
               $('.invoiced-change').remove();
+              updateDate('domains', 'invoiced', _this.parents('tr').data('id'),  timestamp  );
             });
 
         });
-        updateDate('domains', 'invoiced', $(this).parents('tr').data('id'), $('.invoiced-date').html() );
+          // console.log(timestamp);
+        updateDate('domains', 'invoiced', $(this).parents('tr').data('id'), timestamp );
     });
 
     $('.paid').click(function()
     {
-      dateChecked($(this));
+     var timestamp = dateChecked($(this));
 
       $('.paid-date').unbind('click');
       $('.paid-date').click(function() {
@@ -122,15 +127,17 @@ $(document).ready(function(){
             $(this).after('<input type="date"  class="form-control paid-change">');
             $('.paid-change').change(function() {
                 var date = new Date($('.paid-change').val());
+                timestamp = date;
                 _this.html( '<span class="paid-date">'+ date.format() +'</span>');
                 $('.paid-change').remove();
+                updateDate('domains', 'paid', _this.parents('tr').data('id'),  timestamp  );
             });      
         });
-        updateDate('domains', 'paid', $(this).parents('tr').data('id'), $('.paid-date').html() );
+        updateDate('domains', 'paid', $(this).parents('tr').data('id'),  timestamp  );
     });
 
      $('.renewed').click(function() {
-          dateChecked($(this));
+        var timestamp =  dateChecked($(this));
              $('.renewed-date').unbind('click');
           $('.renewed-date').click(function() {
             var _this = $(this);
@@ -138,12 +145,14 @@ $(document).ready(function(){
             $(this).after('<input type="date"  class="form-control renewed-change">');
             $('.renewed-change').change(function() {
               var date = new Date($('.renewed-change').val());
+              timestamp = date;
               _this.html( '<span class="renewed-date">'+ date.format() +'</span>');
               $('.renewed-change').remove();
+              updateDate('domains', 'renewed', _this.parents('tr').data('id'),  timestamp  );
             });
 
         });
-        updateDate('domains', 'renewed', $(this).parents('tr').data('id'), $('.renewed-date').html() );
+        updateDate('domains', 'renewed', $(this).parents('tr').data('id'),  timestamp  );
       });
 
     $('.delete-user-path').click(function(){
