@@ -52,7 +52,7 @@
                     var  expdate = Math.floor((domain.expiry-now)/(1000*60*60*24));
                   %>
 
-                   <tr>
+                   <tr data-id="<%= domain.id %>">
                      <td><%= domain.registrar %></td>
                      <td><%= domain.client %></td>
                      <td>£ <%= domain.price %></td> 
@@ -71,13 +71,14 @@
                       <% } %>
                     </td>
                      <td>
+                      
                       <input class="paid" type="checkbox"  value="Paid">
                       <% if(domain.paid != 'Invalid Date' ){ %>
                       <span class="paid-date"><%=  domain.paid %></span>
                       <% } else{ %>
                       <span class="paid-date"></span>
                       <% } %>
-                      
+
                     </td>
                      <td>
                       <input class="renewed" type="checkbox"  value="Renewed">

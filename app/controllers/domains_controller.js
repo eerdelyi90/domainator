@@ -50,22 +50,45 @@ DomainsController.new = function() {
 
 DomainsController.quickedit = function(){
 
-var this_ = this;
-var self = this;
-this.respond({
-  'json': function() { self.res.json({ hello: 'world' , sup: 'nm'}); },
-  default: function() { self.render(); }
-})
-console.log("HAGgdsdhfhsdljdjdjdddddddddddddddddddddddddddddddddddddddddd",this.req.body);
+  var this_ = this;
+  var params  = this.req.body;
+  var dbobject = {};
+  var unixdate = new Date(params.date);
+  console.log(unixdate);
 
-   Domain.find(id)
-  .success(function(domain) {
- 
-  })
-  .error(function(error) {
-    this_.next(error);
-  });
+  switch(params.action){
+    case 'paid':
+      dbobject = {paid : params.date};
+      break;
+    case'invoiced':
+     dbobject = {invoiced : params.date};
+      break;
+    case 'renewed':
+     dbobject = {renewed : params.date};
+      break;
+    default:
+    break;
+  }
+
+  console.log(this.req.body.date,this.req.body.action,this.req.body.id);
+
+  Domain.find(this.param('id'))
+    .success(function(domain) {
+      domain.updateAttributes(dbobject)
+        .success(function() {
+          this_.req.flash('success', 'Date for ' + params.action + 'has been updated!' );
+        })
+        .error(function(error) {
+          this_.req.flash('error', 'Something went wrong! ' + error);
+          
+        });
+    })
+    .error(function(error) {
+      this_.req.flash('error', 'Something went wrong! ' + error);
+      
+    });
 };
+
 
 
 DomainsController.create = function() {
