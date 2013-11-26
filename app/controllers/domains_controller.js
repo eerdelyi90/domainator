@@ -7,7 +7,9 @@ var Domain            = require('../models').Domain;
 var Log               = require('../models').Log;
 var DomainsController = new Controller();
 var login             = require('connect-ensure-login');
-
+var parseXlsx         = require('excel');
+var csv               = require('csv')
+var fs                = require('fs');
 var now               = new Date();
 now                   = now.setMonth(now.getMonth()+1);
 now                   = dateFormat(now, "yyyy-mm-dd");
@@ -46,6 +48,32 @@ DomainsController.index = function() {
 
 DomainsController.new = function() {
   this.render({ domain : {} });
+};
+
+DomainsController.import = function() {
+  var csv_import = {};
+    Domain.create(csv_import)
+    .success(function(domain) {
+
+    })
+     .error(function(error) {
+          this_.req.flash('error', 'Something went wrong! ' + error);
+        }); 
+
+};
+DomainsController.export = function() {
+   var this_ = this;
+// load all Domains
+  Domain.findAll()
+    .success(function(domains) {
+
+      //turn object into csv
+
+      })
+    .error(function(error) {
+      this_.next(error);
+    });
+
 };
 
 DomainsController.quickedit = function(){
