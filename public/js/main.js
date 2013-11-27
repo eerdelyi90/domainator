@@ -1,3 +1,7 @@
+/*
+ * AJAX begin
+ */
+
 var deleteItem = function(id, path) {
   $.ajax({
     url: '/'+path+'/'+id,
@@ -26,6 +30,40 @@ var updateDate = function(path, action, id, date) {
   });
 }
 
+var uploadCSV = function(path,data,fd){
+  $.ajax({
+     url: '/'+path+'/import',
+     data: fd,
+     type:'post',
+     processData: false,  // tell jQuery not to process the data
+     contentType: false,   // tell jQuery not to set contentType
+    success: function(data){
+      // alert(action + ' has been updated');
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
+}
+var downloadCSV = function(path){
+  $.ajax({
+     url: '/'+path+'/export',
+     type:'post',
+    success: function(data){
+      // alert(action + ' has been updated');
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
+}
+/*
+ * AJAX end
+ */
+
+/*
+ * frontend JS begin
+ */
 
 var generatePassword = function(){
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -77,10 +115,28 @@ var dateChecked = function(domObj) {
 
 }
 
-
+/*
+ * frontend JS begin
+ */
 
 
 $(document).ready(function(){
+  var pass_style ={
+        backgroundColor : '#dff0d8 ',
+        border          : '1px solid #ddd',
+        borderRadius    : '5px',
+        color           : '#468847',
+        padding         :'10px 40px',
+        margin          :'0px 0px 10px 0px '
+      }
+  var fail_style ={
+        backgroundColor : '#f9f2f4 ',
+        border          : '1px solid #ddd',
+        borderRadius    : '5px',
+        color           : '#c7254e',
+        padding         :'10px 40px',
+        margin          :'0px 0px 10px 0px '
+      }
   var pass = '';
   $('.generate').click(function(){
     pass = generatePassword();
@@ -160,6 +216,31 @@ $(document).ready(function(){
         $(this).attr('data-id'), 'users');
       $(this).parents('tr').remove();
     });
+
+    $('.downloadDomain').click(function(){
+      $('.message-download').css(pass_style);
+      $('.message-download').html('<button type="button" class="close upload-close" aria-hidden="true">&times;</button><p>Success!</p>');
+      // downloadCSV('domains');
+    });
+    $('.uploadDomain').click(function(){
+      var upload = $('.upload').val();
+      console.log(upload);
+    
+      // $('.message-upload').show();
+      if(upload != ''){
+        $('.message-upload').css(pass_style);
+        $('.message-upload').html('<button type="button" class="close upload-close" data-dismiss="message" aria-hidden="true">&times;</button><p>File was uploaded!</p>');
+        var fd = new FormData(document.getElementById("uploadform"));
+        console.log('formdata', fd);
+        uploadCSV('domains', upload,fd);
+      }else{
+        $('.message-upload').css(fail_style);
+        $('.message-upload').html('<button type="button" class="close upload-close" data-dismiss="message" aria-hidden="true">&times;</button><p>A file needs to be selected!</p>');
+      }
+      
+      
+    });
+   
 
     
 

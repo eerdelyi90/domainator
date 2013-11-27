@@ -25,7 +25,12 @@ module.exports = function(sequelize, Sequelize) {
 				if(users.length > 0 && bcrypt.compareSync(password, users[0].password)) {
 					user = users[0];
 				} else {
-					error = 'User not found';
+					 if(typeof callback == 'function') {
+					callback(error, user);
+				} else {
+					throw new Exception('Callback not a function');
+				}
+					// error = 'User not found';
 				}
 
 				if(typeof callback == 'function') {

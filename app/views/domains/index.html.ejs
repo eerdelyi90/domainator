@@ -19,50 +19,51 @@
 <% } %>
 
 <a href="<%= newDomainPath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add new Domain</a>
-<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".importModal"><i class="icon-level-up icon-white"></i> Import Domains</a>
+<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".uploadModal"><i class="icon-level-up icon-white"></i> Upload Domains</a>
 <!-- Modal -->
-<div class="modal fade importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Import Domains</h4>
+        <h4 class="modal-title" id="myModalLabel">Upload Domains</h4>
       </div>
       <div class="modal-body">
-       
-          <form>
+       <div class="message-upload" data-toggle="message"></div>
+          <form  method="post", enctype="multipart/form-data" name='uploadform' id='uploadform'>
         <div class="form-group">
-          <label>Import File</label>
-          <input type="file" class="form-control">
+          <label>Upload File</label>
+          <input type="file" accept=".csv" name="csvupload" class="form-control upload">
         </div>
         
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary uploadDomain">Upload Domains</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".exportModal"><i class="icon-level-down icon-white"></i> Export Domains</a>
+<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".downloadModal"><i class="icon-level-down icon-white"></i> Download Domains</a>
 <!-- Modal -->
-<div class="modal fade exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade downloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Export Domains</h4>
+        <h4 class="modal-title" id="myModalLabel">Download Domains</h4>
       </div>
       <div class="modal-body">
+        <div class="message-download" data-toggle="message"></div>
           <form>
         <div class="form-group">
-          <label>Export File</label>
+          <label>Download File</label>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Download Excel File</button>
+        <a href="domains/export"><button type="button" class="btn btn-primary downloadDomain">Download Excel File</button></a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </form>
       </div>

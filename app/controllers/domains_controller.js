@@ -1,4 +1,5 @@
 var locomotive        = require('locomotive');
+var  path             = require('path');
 var dateFormat        = require('dateformat');
 var nodemailer        = require("nodemailer");
 var cronJob           = require('cron').CronJob;
@@ -7,7 +8,7 @@ var Domain            = require('../models').Domain;
 var Log               = require('../models').Log;
 var DomainsController = new Controller();
 var login             = require('connect-ensure-login');
-var parseXlsx         = require('excel');
+var parseXlsx         = require('excel-parser');
 var csv               = require('csv')
 var fs                = require('fs');
 var now               = new Date();
@@ -51,24 +52,84 @@ DomainsController.new = function() {
 };
 
 DomainsController.import = function() {
+  var row_holder = [];
   var csv_import = {};
-    Domain.create(csv_import)
-    .success(function(domain) {
+  var this_ = this;
+  var params  = this.req.body;
 
-    })
-     .error(function(error) {
-          this_.req.flash('error', 'Something went wrong! ' + error);
-        }); 
+   var importCSV = function(path) {
+        csv()
+      .from.path(path, { delimiter: ',', escape: '"' })
+      // .to.stream(fs.createWriteStream(__dirname+'../../../uploads/'+this_.req.files.csvupload.name))
+      .transform( function(row){
+        row.unshift(row.pop());
+        return row;
+      })
+      .on('record', function(row,index){
+        console.log(row);
+        // row_holder.push(JSON.stringify(row));
+      
+      })
+      .on('close', function(count){
+        // when writing to a file, use the 'close' event
+        // the 'end' event may fire before the file has been written
+        console.log('Number of lines: '+count);
+      })
+      .on('error', function(error){
+        console.log(error.message);
+      });
+        //   for(var i = 1; i<row_holder.length; i++){
+      //   Domain.create(row_holder[i])
+      //   .success(function(domain) {
+
+      //   })
+      //    .error(function(error) {
+      //         this_.req.flash('error', 'Something went wrong! ' + error);
+      //   }); 
+      // }
+}
+
+  // console.log('data', this.req.files);
+  fs.readFile(this.req.files.csvupload.path, function (err, data) {
+    var newPath = __dirname + "../../../uploads/"+this_.req.files.csvupload.name;
+  fs.writeFile(newPath, data, function (err) {
+    importCSV(newPath);
+    console.log('pass');
+  });
+});
+
+
+
 
 };
 DomainsController.export = function() {
-   var this_ = this;
+   var this_    = this;
+   var now_ext  = new Date();
+   var csv      = 'registrar,action,renewed,price,domain,expiry,registrant,registrant id,registrant email,contact name,address1,address2,address3,city,county,postcode,country,dns0,dns1,dns2,\n';
+   var fileName = 'currentexport'+now+'.csv';
+   var newPath  = __dirname + "../../../downloads/"+fileName;
+   
 // load all Domains
   Domain.findAll()
     .success(function(domains) {
+       domains.forEach(function(domain) {
+        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county + ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
+      // console.log(csv,domain);
+          fs.writeFile(newPath, csv, function (err) {
+            console.log('pass2');
+            this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
+          });
+          // this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
+           // this_.res.setHeader('Content-disposition', 'attachment; filename='+'currentexport'+now+'.csv');
+           //  //filename is the name which client will see. Don't put full path here.
 
-      //turn object into csv
+           //  this_.res.setHeader('Content-type', 'text/csv');      //for exe file
 
+           //  var file = fs.createReadStream(newPath);
+           //  //replace filepath with path of file to send
+           //  file.pipe(this_.res);
+
+        });
       })
     .error(function(error) {
       this_.next(error);
