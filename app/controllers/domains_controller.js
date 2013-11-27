@@ -113,22 +113,11 @@ DomainsController.export = function() {
   Domain.findAll()
     .success(function(domains) {
        domains.forEach(function(domain) {
-        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county + ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
-      // console.log(csv,domain);
+        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county +',' + domain.postcode + ',' + domain.country +  ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
           fs.writeFile(newPath, csv, function (err) {
             console.log('pass2');
             this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
           });
-          // this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
-           // this_.res.setHeader('Content-disposition', 'attachment; filename='+'currentexport'+now+'.csv');
-           //  //filename is the name which client will see. Don't put full path here.
-
-           //  this_.res.setHeader('Content-type', 'text/csv');      //for exe file
-
-           //  var file = fs.createReadStream(newPath);
-           //  //replace filepath with path of file to send
-           //  file.pipe(this_.res);
-
         });
       })
     .error(function(error) {
