@@ -66,27 +66,54 @@ DomainsController.import = function() {
         return row;
       })
       .on('record', function(row,index){
-        console.log(row);
-        // row_holder.push(JSON.stringify(row));
-      
+        // console.log(row);
+        row_holder.push({
+          registrar        : row[1],
+          action           : row[7],
+          client           : 'not set',
+          renewed          : row[3],
+          paid             : 'not set',
+          invoiced         : 'not set',
+          price            : row[4],
+          domain           : row[5],
+          expiry           : row[6],
+          registrant       : row[7],
+          registrant_email : row[9],
+          contact_name     : row[10],
+          address1         : row[11],
+          address2         : row[12],
+          address3         : row[13],
+          city             : row[14],
+          county           : row[15],
+          postcode         : row[16],
+          country          : row[17],
+          DNS0             : row[18],
+          DNS1             : row[19],
+          DNS2             : row[20]
+        });
+
       })
-      .on('close', function(count){
+      .on('end', function(count){
         // when writing to a file, use the 'close' event
         // the 'end' event may fire before the file has been written
         console.log('Number of lines: '+count);
+        console.log('row_holder', row_holder);
+        for(var i = 1; i<row_holder.length; i++){
+          Domain.create(row_holder[i])
+          .success(function(domain) {
+
+          })
+           .error(function(error) {
+                this_.req.flash('error', 'Something went wrong! ' + error);
+          }); 
+         }
       })
       .on('error', function(error){
         console.log(error.message);
       });
-        //   for(var i = 1; i<row_holder.length; i++){
-      //   Domain.create(row_holder[i])
-      //   .success(function(domain) {
+      
 
-      //   })
-      //    .error(function(error) {
-      //         this_.req.flash('error', 'Something went wrong! ' + error);
-      //   }); 
-      // }
+ 
 }
 
   // console.log('data', this.req.files);
@@ -95,6 +122,7 @@ DomainsController.import = function() {
   fs.writeFile(newPath, data, function (err) {
     importCSV(newPath);
     console.log('pass');
+
   });
 });
 
@@ -405,6 +433,6 @@ DomainsController.alerts = function(){
 
 }
 
-DomainsController.before('*', login.ensureLoggedIn('/login'));
+// DomainsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = DomainsController;
