@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize) {
     lastname  : Sequelize.STRING
   }, {
 	classMethods: {
-		authenticate: function(password, username, callback) {
+		authenticate: function(username,password, callback) {
 
 			var this_ = this;
 
@@ -17,13 +17,14 @@ module.exports = function(sequelize, Sequelize) {
 			var hash =  bcrypt.hashSync(password);
 			var error = '';
 			var user = false;
-
+			// console.log('supplied username',username,'supplied password',password);
 			this.findAll({ where: {
 				username: username
 			}}).success(function(users) {
-
+				// console.log('username',users[0].username,'password',users[0].password,'hash',hash);
 				if(users.length > 0 && bcrypt.compareSync(password, users[0].password)) {
 					user = users[0];
+					// console.log('password', user.password,'username',user.username,'supplied username',username,'supplied password',password);
 				} else {
 					 if(typeof callback == 'function') {
 					callback(error, user);

@@ -67,16 +67,24 @@ DomainsController.import = function() {
       })
       .on('record', function(row,index){
         // console.log(row);
+        var expiry    = row[6];
+        var expiry_ar = expiry.split('/');
+        var temp      = expiry_ar[0];
+        expiry_ar[0]  = expiry_ar[1];
+        expiry_ar[1]  = temp;
+        expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+        expiry = new Date(expiry);
+        console.log(expiry);
         row_holder.push({
           registrar        : row[1],
-          action           : row[7],
-          client           : 'not set',
+          action           : row[2],
+          client           : row[7],
           renewed          : row[3],
           paid             : 'not set',
           invoiced         : 'not set',
           price            : row[4],
           domain           : row[5],
-          expiry           : row[6],
+          expiry           : expiry,
           registrant       : row[7],
           registrant_email : row[9],
           contact_name     : row[10],
@@ -96,8 +104,7 @@ DomainsController.import = function() {
       .on('end', function(count){
         // when writing to a file, use the 'close' event
         // the 'end' event may fire before the file has been written
-        console.log('Number of lines: '+count);
-        console.log('row_holder', row_holder);
+       
         for(var i = 1; i<row_holder.length; i++){
           Domain.create(row_holder[i])
           .success(function(domain) {
@@ -433,6 +440,6 @@ DomainsController.alerts = function(){
 
 }
 
-// DomainsController.before('*', login.ensureLoggedIn('/login'));
+DomainsController.before('*', login.ensureLoggedIn('/login'));
 
 module.exports = DomainsController;

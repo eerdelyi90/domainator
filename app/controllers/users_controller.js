@@ -7,10 +7,7 @@ var Log               = require('../models').Log;
 var login           = require('connect-ensure-login');
 
 
-UsersController.p_generate = function(){
-var this_ = this;
 
-}
 
 UsersController.index = function() {
   var this_ = this;
@@ -35,10 +32,10 @@ UsersController.create = function() {
   var path    = this.usersPath();
 
  
-
+  var salt = bcrypt.genSaltSync(10);
   // Encrypt us some pazzw0rfd
-  params.password = bcrypt.hashSync(params.password);
-  // paramas.password = encrypt(params.password);
+  params.password = bcrypt.hashSync(params.password,salt);
+ 
 
   User.create(params)
     .success(function(user) {
@@ -86,8 +83,8 @@ UsersController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.usersPath();
-
-  params.password = bcrypt.hashSync(params.password);
+  var salt = bcrypt.genSaltSync(10);
+  params.password = bcrypt.hashSync(params.password,salt);
 
   // console.log(params);
 
