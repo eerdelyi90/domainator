@@ -57,6 +57,14 @@ DomainsController.import = function() {
   var this_ = this;
   var params  = this.req.body;
 
+  function is_int(value){ 
+  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+      return true;
+  } else { 
+      return false;
+  } 
+}
+
    var importCSV = function(path) {
         csv()
       .from.path(path, { delimiter: ',', escape: '"' })
@@ -66,7 +74,11 @@ DomainsController.import = function() {
         return row;
       })
       .on('record', function(row,index){
-        // console.log(row);
+        console.log(row[7]);
+        if(!is_int(row[4])){
+          row[4] = 0;
+        }
+
         var expiry    = row[6];
         var expiry_ar = expiry.split('/');
         var temp      = expiry_ar[0];
@@ -74,18 +86,19 @@ DomainsController.import = function() {
         expiry_ar[1]  = temp;
         expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
         expiry = new Date(expiry);
-        console.log(expiry);
+        console.log(row);
         row_holder.push({
           registrar        : row[1],
           action           : row[2],
-          client           : row[7],
+          client           : row[8],
           renewed          : row[3],
           paid             : 'not set',
           invoiced         : 'not set',
-          price            : row[4],
+          price            : parseInt(row[4]),
           domain           : row[5],
           expiry           : expiry,
-          registrant       : row[7],
+          renew            : row[7],
+          registrant       : row[8],
           registrant_email : row[9],
           contact_name     : row[10],
           address1         : row[11],
@@ -104,7 +117,8 @@ DomainsController.import = function() {
       .on('end', function(count){
         // when writing to a file, use the 'close' event
         // the 'end' event may fire before the file has been written
-       
+        
+        //lock this
         for(var i = 1; i<row_holder.length; i++){
           Domain.create(row_holder[i])
           .success(function(domain) {
@@ -114,41 +128,35 @@ DomainsController.import = function() {
                 this_.req.flash('error', 'Something went wrong! ' + error);
           }); 
          }
+         console.log(count);
       })
       .on('error', function(error){
         console.log(error.message);
       });
-      
+    };
+    // console.log('data', this.req.files);
+    fs.readFile(this.req.files.csvupload.path, function (err, data) {
+      var newPath = __dirname + "../../../uploads/"+this_.req.files.csvupload.name;
+    fs.writeFile(newPath, data, function (err) {
+      importCSV(newPath);
+      console.log('pass');
 
- 
-}
-
-  // console.log('data', this.req.files);
-  fs.readFile(this.req.files.csvupload.path, function (err, data) {
-    var newPath = __dirname + "../../../uploads/"+this_.req.files.csvupload.name;
-  fs.writeFile(newPath, data, function (err) {
-    importCSV(newPath);
-    console.log('pass');
-
+    });
   });
-});
-
-
-
-
 };
 DomainsController.export = function() {
    var this_    = this;
    var now_ext  = new Date();
-   var csv      = 'registrar,action,renewed,price,domain,expiry,registrant,registrant id,registrant email,contact name,address1,address2,address3,city,county,postcode,country,dns0,dns1,dns2,\n';
+   var csv      = 'registrar,action,renewed,price,domain,expiry,renew,registrant,registrant id,registrant email,contact name,address1,address2,address3,city,county,postcode,country,dns0,dns1,dns2,\n';
    var fileName = 'currentexport'+now+'.csv';
    var newPath  = __dirname + "../../../downloads/"+fileName;
    
 // load all Domains
   Domain.findAll()
     .success(function(domains) {
+      //lock this
        domains.forEach(function(domain) {
-        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county +',' + domain.postcode + ',' + domain.country +  ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
+        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.renew + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county +',' + domain.postcode + ',' + domain.country +  ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
           fs.writeFile(newPath, csv, function (err) {
             console.log('pass2');
             this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
@@ -438,7 +446,7 @@ DomainsController.alerts = function(){
    */
 
 
-}
+};
 
 DomainsController.before('*', login.ensureLoggedIn('/login'));
 
