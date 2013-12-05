@@ -10,7 +10,7 @@
     "async": "~0.1.22",
     "ejs-locals": "~1.0.2",
     "flashify": "~0.1.0",
-    "sequelize": "~1.6.0-beta4",
+    "sequelize": "~1.7.0",
     "sqlite3": "~2.1.5",
     "should": "~1.2.1",
     "mocha": "~1.8.1"

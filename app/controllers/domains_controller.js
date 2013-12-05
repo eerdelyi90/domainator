@@ -80,12 +80,23 @@ DomainsController.import = function() {
         }
 
         var expiry    = row[6];
-        var expiry_ar = expiry.split('/');
-        var temp      = expiry_ar[0];
-        expiry_ar[0]  = expiry_ar[1];
-        expiry_ar[1]  = temp;
-        expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+        console.log(expiry);
+        expiry = expiry.toString();
+        if(expiry.indexOf('/' !== -1)){
+          
+          var expiry_ar = expiry.split('/');
+          var temp      = expiry_ar[0];
+          expiry_ar[0]  = expiry_ar[1];
+          expiry_ar[1]  = temp;
+          expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+          console.log(expiry);
+        }else{
+          
+          expiry = expiry.replace('-','/');
+          console.log(expiry);
+        }
         expiry = new Date(expiry);
+        console.log(expiry);
         console.log(row);
         row_holder.push({
           registrar        : row[1],
@@ -119,15 +130,15 @@ DomainsController.import = function() {
         // the 'end' event may fire before the file has been written
         
         //lock this
-        for(var i = 1; i<row_holder.length; i++){
-          Domain.create(row_holder[i])
+        // for(var i = 1; i < row_holder.length; i++){
+          Domain.bulkCreate(row_holder)
           .success(function(domain) {
-
+            console.log( 'pass3', count);
           })
            .error(function(error) {
                 this_.req.flash('error', 'Something went wrong! ' + error);
           }); 
-         }
+         // }
          console.log(count);
       })
       .on('error', function(error){
