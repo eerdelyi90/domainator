@@ -174,5 +174,37 @@ table.tablesorter thead tr th:hover {
   cursor: pointer;
 }
 
+.container{
+  max-width: none !important;
+}
+.mode-edit{
+  display: none;
+}
+.action-out{
+  margin: 10px;
+  padding-bottom: 5px;
+}
+.danger-cat{
+  background-color:#ff9898;
+}
+.warning-cat{
+    background-color:#ffc966 ;
+}
+.warning-cat a{
+color:#000 ;
+}
+.danger-cat a{
+color:#000 ;
+}
  
+ tr:hover{
+  color:#000;
+ }
+ .danger-cat a:hover{
+   color:#00B7FF ;
+}
+ .warning-cat a:hover{
+   color:#00B7FF ;
+}
+
 

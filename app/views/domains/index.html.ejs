@@ -94,6 +94,7 @@
                      <th>Invoiced</th>
                      <th>Paid</th>
                      <th>Renewed</th>
+                     <th>Action</th>
                </thead>
                </thead>
                <tbody>
@@ -102,20 +103,31 @@
                     now          = now.setMonth(now.getMonth());
                     var  expdate = Math.floor((domain.expiry-now)/(1000*60*60*24));
                   %>
-
-                   <tr data-id="<%= domain.id %>">
+                  <% if(expdate<31) {%>
+                   <tr class="danger-cat" data-id="<%= domain.id %>">
+                    <% }else if(expdate<46){ %>
+                    <tr class="warning-cat" data-id="<%= domain.id %>">
+                      <% }else{ %>
+                    <tr class="chill" data-id="<%= domain.id %>">
+                     <% } %>
                      <td><%= domain.registrar %></td>
                      <td><%= domain.client %></td>
                      <td>£ <%= domain.price %></td> 
-                     <td><%= domain.domain %></td>
-                     <td><%= domain.expiry.format() + ' ('+ expdate+')' %></td>
+                     <td><a href="http://www.<%= domain.domain %>" target="_blank"><%= domain.domain %></a></td>
+                     <td>
+                       <% if(domain.expiry != 'Invalid Date' && domain.expiry != null ){ %>
+                     <span class="expiry-date"> <%= domain.expiry.format() + ' ('+ expdate+')' %></span>
+                     <% } else{ %>
+                     <span class="expiry-date">none</span>
+                     <% } %>
+                    </td>
                      <td><%= domain.renew %> years</td>            
                      <td><a href="<%= editDomainPath(domain.id) %>" class="btn btn-inverse">Edit</a></td>
                      <td><a href="#" data-id="<%= domain.id %>" class="btn btn-inverse delete-domain-path">Delete</a></td>
 
                      <td>
                       <input class="invoiced" type="checkbox"  value="Invoiced">
-                       <% if(domain.invoiced != 'Invalid Date'  ){ %>
+                       <% if(domain.invoiced != 'Invalid Date' && domain.invoiced != null  ){ %>
                       <span class="invoiced-date"><%=  domain.invoiced.format() %></span>
                       <% } else{ %>
                       <span class="invoiced-date"></span>
@@ -124,7 +136,7 @@
                      <td>
                       
                       <input class="paid" type="checkbox"  value="Paid">
-                      <% if(domain.paid != 'Invalid Date' ){ %>
+                      <% if(domain.paid != 'Invalid Date' && domain.paid != null ){ %>
                       <span class="paid-date"><%=  domain.paid.format() %></span>
                       <% } else{ %>
                       <span class="paid-date"></span>
@@ -133,11 +145,25 @@
                     </td>
                      <td>
                       <input class="renewed" type="checkbox"  value="Renewed">
-                       <% if(domain.renewed != 'Invalid Date'  ){ %>
+                       <% if(domain.renewed != 'Invalid Date' && domain.renewed != null  ){ %>
                       <span class="renewed-date"><%=  domain.renewed.format() %></span>
                       <% } else{ %>
                       <span class="renewed-date"></span>
                       <% } %>
+                    </td>
+                      <td>
+                       <div class="mode-show">
+                        <% if(domain.action != ''  ){ %>
+                       <span class="action-out"><p><%=  domain.action %></p></span>
+                       <% } else{ %>
+                       <span class="action-out"><p>No Action!</p></span>
+                       <% } %>
+                       <a href='#' class="btn btn-small btn-primary action "><i class="icon-edit icon-white"></i> Edit Text</a>
+                      </div>
+                      <div class="mode-edit">
+                        <textarea class="textbox" rows="4" cols="50"></textarea>
+                        <a href="#" class="btn btn-small btn-success save-text"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
                     </td>
 
                    </tr>

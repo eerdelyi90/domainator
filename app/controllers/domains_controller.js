@@ -38,7 +38,7 @@ DomainsController.index = function() {
 
 
   // load all Domains
-  Domain.findAll()
+  Domain.findAll({order: 'expiry ASC'})
     .success(function(domains) {
       this_.render({ domains : domains });
     })
@@ -198,6 +198,12 @@ DomainsController.quickedit = function(){
     case 'renewed':
      dbobject = {renewed : params.date};
       break;
+    case 'action':
+     dbobject = {action : params.text};
+      break;
+      case 'expiry':
+      dbobject = {expiry : params.date};
+      break;
     default:
     break;
   }
@@ -224,10 +230,19 @@ DomainsController.quickedit = function(){
 
 
 DomainsController.create = function() {
-  var this_   = this;
-  var params  = this.req.body;
-  var path    = this.domainsPath();
+  var this_     = this;
+  var params    = this.req.body;
+  var path      = this.domainsPath();
 
+     var expiry_ar = params.expiry.split('/');
+  var temp      = expiry_ar[0];
+  expiry_ar[0]  = expiry_ar[1];
+  expiry_ar[1]  = temp;
+  expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+  var date = new Date(expiry);
+   // console.log('Pre-DATE------------>', params.expiry,'PostInversion-Date---------->',expiry);
+  params.expiry = date;
+  // console.log('Post-DATE------------>', params.expiry);
   
 
   Domain.create(params)
@@ -261,12 +276,14 @@ DomainsController.create = function() {
 };
 
 DomainsController.edit = function() {
-  var this_ = this;
-  var id    = this.param('id');
-
+  var this_       = this;
+  var id          = this.param('id');
+  var params  = this.req.body;
+  // params.expiry = params.expiry.format();
 
   Domain.find(id)
     .success(function(domain) {
+
       this_.render({ domain : domain });
     })
     .error(function(error) {
@@ -278,7 +295,14 @@ DomainsController.update = function() {
   var this_   = this;
   var params  = this.req.body;
   var path    = this.domainsPath();
-
+   var expiry_ar = params.expiry.split('/');
+  var temp      = expiry_ar[0];
+  expiry_ar[0]  = expiry_ar[1];
+  expiry_ar[1]  = temp;
+  expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+  var date = new Date(expiry);
+ params.expiry = date;
+ 
   // Get what it looked like before
   // Get what it looked like after
   // Create a string with the fields that differ
@@ -355,7 +379,9 @@ DomainsController.destroy = function(){
     }); 
       // now i'm gone :)
       this_.req.flash('success', 'Domain was deleted!');
+      if(domain != null){
       domain.destroy();
+    }
 
     })
     .error(function(error) {

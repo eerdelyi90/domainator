@@ -30,6 +30,21 @@ var updateDate = function(path, action, id, date) {
   });
 }
 
+var updateAction = function(path, action, id, text) {
+  
+  $.ajax({
+     url: '/'+path+'/quickedit',
+     data: { action: action, text : text, 'id': id },
+     type:'post',
+    success: function(data){
+      // alert(action + ' has been updated');
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
+}
+
 var uploadCSV = function(path,data,fd){
   $.ajax({
      url: '/'+path+'/import',
@@ -94,7 +109,7 @@ Date.prototype.format = function(){
     var day    = this.getDate();
     var date   = day + '/'+ month + '/' + year;
    
-    return date ;
+    return date;
 }
 
 var dateChecked = function(domObj) {
@@ -149,7 +164,49 @@ $(document).ready(function(){
       $(this).parents('tr').remove();
     });
 
+$('.expiry-new').click(function() {
+  var _this = $(this);
+   $('.date').datepicker({
+              format: "dd/mm/yyyy",
+              todayBtn: true
+              });
+    $('.expiry-new').change(function() {
+         // var expiry_ar = $('.expiry-new').val().split('/');
+         //      var temp      = expiry_ar[0];
+         //      expiry_ar[0]  = expiry_ar[1];
+         //      expiry_ar[1]  = temp;
+         //      expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+         //      var date = new Date(expiry);
+         //      timestamp = date;
+              $('.expiry-new').val(date) ;
+              });
+  });
 
+       $('.expiry-date').click(function() {
+            var _this = $(this);
+            $('.expiry-change').remove();
+            $('.date').remove();
+            $(this).after('<div class="date"><input class="expiry-change" type="text"><span class="add-on"><i class="icon-th"></i></span></div>');
+            $('.date').datepicker({
+              format: "dd/mm/yyyy",
+              todayBtn: true
+              });
+            $('.expiry-change').change(function() {
+              var expiry_ar = $('.expiry-change').val().split('/');
+              var temp      = expiry_ar[0];
+              expiry_ar[0]  = expiry_ar[1];
+              expiry_ar[1]  = temp;
+              expiry = expiry_ar[0] + '/' + expiry_ar[1] + '/' + expiry_ar[2];
+              var date = new Date(expiry);
+              timestamp = date;
+              console.log(date);
+              _this.html( '<span class="expiry-date">'+ date.format() +'</span>');
+              $('.expiry-change').remove();
+              $('.date').remove();
+              updateDate('domains', 'expiry', _this.parents('tr').data('id'),  timestamp  );
+            });
+
+        });
      $('.invoiced').click(function()
         {
          var timestamp = dateChecked($(this));
@@ -237,9 +294,24 @@ $(document).ready(function(){
         $('.message-upload').css(fail_style);
         $('.message-upload').html('<button type="button" class="close upload-close" data-dismiss="message" aria-hidden="true">&times;</button><p>A file needs to be selected!</p>');
       }
-      
-      
     });
+
+    $('.action').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide();
+      _this.parents('td').children('.mode-edit').show();
+    });
+      $('.save-text').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('domains','action',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.action-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show();
+      _this.parents('td').children('.mode-edit').hide();
+      });
+
    
 
     

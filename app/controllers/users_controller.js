@@ -155,7 +155,9 @@ UsersController.destroy = function(req, res){
     }); 
       // now i'm gone :)
       this_.req.flash('success', 'User was deleted!');
+      if(user != null){
       user.destroy();
+    }
 
     })
     .error(function(error) {
