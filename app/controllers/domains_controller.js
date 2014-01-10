@@ -231,7 +231,7 @@ DomainsController.quickedit = function(){
             from: "cyber@cyb.co.uk",
             to: "egon@cyb.co.uk",
             subject: "The following domain has been invoiced!",
-            text: "This domain was the domain that was invoiced \n\n" +  domainInfo 
+            text: "This domain has been invoiced \n\n" +  domainInfo 
           }
 
             sendmailTransport.sendMail(mailOptions,  function(error, responseStatus){
@@ -465,13 +465,25 @@ DomainsController.alerts = function(){
       }else{
 
         var domainInfo = '';
-
+        var send = false;
         for(i in domains) {
           domain = domains[i];
           domainInfo += ' + ' + domain.domain;
           domainInfo += ' expires on' + domain.expiry;
           domainInfo += '. The registrar is ' + domain.registrar;
           domainInfo += '. The cost is ' + domain.price + "\n";
+          if(domain.expiry > 2 && domain.expiry < 46){
+            send = true;
+            if(domain.expiry < 2){
+              domainInfo +=  "\n" + 'This domain is not being renewed!';
+            }else if(domain.expiry < 16){
+              domainInfo +=  "\n" + 'This domain is running out really soon!';
+            }else if(domain.expiry < 31){
+              domainInfo +=  "\n" + 'This domain is running out in a month!';
+            }else if(domain.expiry < 46){
+              domainInfo +=  "\n" + 'This domain is running out soon!';
+            }
+          }
         }
 
         var mailOptions = {
@@ -480,32 +492,33 @@ DomainsController.alerts = function(){
           subject: "The following domains are due for renewal!",
           text: "These domains need to be renewed within the next month: \n\n" +  domainInfo 
       }
-      sendmailTransport.sendMail(mailOptions,  function(error, responseStatus){
-      console.log(error);
-          if(!error){
-              console.log(responseStatus.message); // response from the server
-              console.log(responseStatus.messageId); // Message-ID value used
+      if(send)
+        sendmailTransport.sendMail(mailOptions,  function(error, responseStatus){
+          console.log(error);
+              if(!error){
+                  console.log(responseStatus.message); // response from the server
+                  console.log(responseStatus.messageId); // Message-ID value used
 
-                   var params2 = {
-                    module_name     : 'cron_alert',
-                    module_event_id : domain.id,
-                    user_id         : 1,
-                    timestamp       : new Date(),
-                    description     : 'renewal',
-                    change          : domain.domain
-                  };
+                       var params2 = {
+                        module_name     : 'cron_alert',
+                        module_event_id : domain.id,
+                        user_id         : 1,
+                        timestamp       : new Date(),
+                        description     : 'renewal',
+                        change          : domain.domain
+                      };
 
-                  Log.create(params2)
-                    .success(function(){
+                      Log.create(params2)
+                        .success(function(){
 
 
-                  })
-                    .error(function(error) {
-                     this_.req.flash('error', 'Something went wrong! ' + error);
-                    // this_.redirect(path);
-                   }); 
-          }
-      });
+                      })
+                        .error(function(error) {
+                         this_.req.flash('error', 'Something went wrong! ' + error);
+                        // this_.redirect(path);
+                       }); 
+              }
+            });
 
       console.log("sent!");
       }
