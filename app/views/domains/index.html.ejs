@@ -110,7 +110,18 @@
                       <% }else{ %>
                     <tr class="chill" data-id="<%= domain.id %>">
                      <% } %>
-                     <td><%= domain.registrar %></td>
+                       <% var registrar = ''
+                          if(domain.registrar == 'Nominet')
+                            registrar = "https://secure.nominet.org.uk/auth/login.html";
+                          if(domain.registrar == 'Network Solutions')
+                            registrar = 'https://www.networksolutions.com/manage-it/index.jsp';
+                          if(domain.registrar == 'namesco')
+                            registrar ='https://admin.names.co.uk/login.php?uri=%2F';
+                          if(domain.registrar == 'Central Nic')
+                            registrar ='https://manage.centralnic.com/';
+                          
+                  %>
+                     <td><a href="<%= registrar %>" target="_blank"><%= domain.registrar %></a></td>
                      <td><%= domain.client %></td>
                      <td>£ <%= domain.price %></td> 
                      <td><a href="http://www.<%= domain.domain %>" target="_blank"><%= domain.domain %></a></td>

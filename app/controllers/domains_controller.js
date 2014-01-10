@@ -185,6 +185,7 @@ DomainsController.quickedit = function(){
   var this_ = this;
   var params  = this.req.body;
   var dbobject = {};
+  var id    = this.param('id');
   var unixdate = new Date(params.date);
   console.log(unixdate);
 
@@ -194,6 +195,10 @@ DomainsController.quickedit = function(){
       break;
     case'invoiced':
      dbobject = {invoiced : params.date};
+     // Domain.find(id)
+     //  .success(function(domains) {
+
+     // });
       break;
     case 'renewed':
      dbobject = {renewed : params.date};
@@ -210,8 +215,56 @@ DomainsController.quickedit = function(){
 
   console.log(this.req.body.date,this.req.body.action,this.req.body.id);
 
-  Domain.find(this.param('id'))
+  Domain.find(id)
     .success(function(domain) {
+      if(params.action == 'invoiced'){  
+        if(domain != null){
+
+          var domainInfo = '';
+
+          
+            domainInfo += ' + ' + domain.domain;
+            domainInfo += ' and was in invoiced on ' + params.date;
+            domainInfo += ' the expiry is now ' + domain.expiry;
+
+          var mailOptions = {
+            from: "cyber@cyb.co.uk",
+            to: "egon@cyb.co.uk",
+            subject: "The following domain has been invoiced!",
+            text: "This domain was the domain that was invoiced \n\n" +  domainInfo 
+          }
+
+            sendmailTransport.sendMail(mailOptions,  function(error, responseStatus){
+            console.log(error);
+          if(!error){
+              console.log(responseStatus.message); // response from the server
+              console.log(responseStatus.messageId); // Message-ID value used
+
+                   var params2 = {
+                    module_name     : 'cron_alert',
+                    module_event_id : domain.id,
+                    user_id         : 1,
+                    timestamp       : new Date(),
+                    description     : 'renewal',
+                    change          : domain.domain
+                  };
+
+                  Log.create(params2)
+                    .success(function(){
+
+
+                  })
+                    .error(function(error) {
+                     this_.req.flash('error', 'Something went wrong! ' + error);
+                    // this_.redirect(path);
+                   }); 
+            }
+        });
+
+        console.log("sent!");
+
+          }
+      }
       domain.updateAttributes(dbobject)
         .success(function() {
           this_.req.flash('success', 'Date for ' + params.action + 'has been updated!' );
@@ -394,10 +447,11 @@ DomainsController.destroy = function(){
 DomainsController.alerts = function(){
 
     var this_ = this;
-
+    console.log('CRON has begun');
     var job = new cronJob({
       cronTime: '00 30 11 * * 1-7',
       onTick: function() {
+        console.log('CRON is running');
         // Runs every weekday (Monday through Friday)
         // at 11:30:00 AM. It does not run on Saturday
         // or Sunday.

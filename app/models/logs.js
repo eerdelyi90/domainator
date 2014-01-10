@@ -1,13 +1,13 @@
 module.exports = function(sequelize, Sequelize) {
     
-    var User = sequelize.import(__dirname + "/user");
+    var Users = sequelize.import(__dirname + "/user");
 
     var Log = sequelize.define('Log', {
         module_name      : Sequelize.STRING,
         module_event_id  : Sequelize.INTEGER,
         user_id          : {
             type         : Sequelize.INTEGER,
-            references   : "User",
+            references   : "Users",
             referencesKey: "id"
         },
         timestamp        : Sequelize.DATE,
@@ -15,7 +15,7 @@ module.exports = function(sequelize, Sequelize) {
         change           : Sequelize.STRING
     });
 
-    Log.belongsTo(User, { foreignKey: 'user_id' });
+    Log.belongsTo(Users, { foreignKey: 'user_id' });
 
     return Log;
    
