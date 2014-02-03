@@ -167,7 +167,23 @@ DomainsController.export = function() {
     .success(function(domains) {
       //lock this
        domains.forEach(function(domain) {
-        csv += domain.registrar + ',' + domain.action + ','+ domain.renewed.format()+ ',' + domain.price+ ',' + domain.domain+ ',' + domain.expiry.format() + ','+ domain.renew + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county +',' + domain.postcode + ',' + domain.country +  ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
+       if(domain.renewed == '' || domain.renewed == null || domain.renewed == 'Na/Na/Na'){
+       }else{
+        var renewed = domain.renewed.format();
+       } 
+        if(domain.expiry == '' && domain.expiry ==null || domain.expiry == 'Na/Na/Na'){
+       }else{
+        var expiry = domain.expiry.format();
+       } 
+       var action = '';
+       if(domain.action =='' ||domain.action == null){
+        
+       }else{
+        action = domain.action;
+        action = action.replace(/\,/g,"");
+       }
+      
+        csv += domain.registrar + ',' + action + ','+ renewed + ',' + domain.price+ ',' + domain.domain+ ',' + expiry + ','+ domain.renew + ','+ domain.registrant+ ',' + ',' + domain.registrant_email+ ',' + domain.contact_name+ ',' + domain.address1+ ',' + domain.address2 + ','+ domain.address3 + ','+ domain.city+ ',' + domain.county +',' + domain.postcode + ',' + domain.country +  ','+ domain.DNS0+ ',' + domain.DNS1+ ',' + domain.DNS2+ ','+'\n' ;
           fs.writeFile(newPath, csv, function (err) {
             console.log('pass2');
             this_.res.sendfile(fileName, {'root': __dirname +'../../../downloads'});
@@ -407,11 +423,6 @@ DomainsController.destroy = function(){
 
   var this_   = this;
   var id    = this.param('id');
-
-  
-
-  Domain.find(id)
-  .success(function(domain) {
     var params2 = {
     module_name     : 'domains',
     module_event_id : domain.id,
@@ -429,7 +440,12 @@ DomainsController.destroy = function(){
     .error(function(error) {
       this_.req.flash('error', 'Something went wrong! ' + error);
       // this_.redirect(path);
-    }); 
+    });
+  
+
+  Domain.find(id)
+  .success(function(domain) {
+ 
       // now i'm gone :)
       this_.req.flash('success', 'Domain was deleted!');
       if(domain != null){
@@ -471,7 +487,9 @@ DomainsController.alerts = function(){
           domainInfo += ' + ' + domain.domain;
           domainInfo += ' expires on' + domain.expiry;
           domainInfo += '. The registrar is ' + domain.registrar;
-          domainInfo += '. The cost is ' + domain.price + "\n";
+          var now      = new Date();
+          now          = now.setMonth(now.getMonth());
+          var  expdate = Math.floor((domain.expiry-now)/(1000*60*60*24));
           if(domain.expiry > 2 && domain.expiry < 46){
             send = true;
             if(domain.expiry < 2){
