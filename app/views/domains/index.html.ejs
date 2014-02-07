@@ -18,9 +18,12 @@
   </div>
 <% } %>
 
-<a href="<%= newDomainPath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add new Domain</a>
-<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".uploadModal"><i class="icon-level-up icon-white"></i> Upload Domains</a>
-<!-- Modal -->
+<div class="group-buttons">
+  <a href="<%= newDomainPath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add new Domain</a>
+  <a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".uploadModal"><i class="icon-level-up icon-white"></i> Upload Domains</a>
+  <a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".downloadModal"><i class="icon-level-down icon-white"></i> Download Domains</a>
+</div>
+<!--Upload Modal -->
 <div class="modal fade uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -46,8 +49,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<a href="#" class="btn btn-small btn-success pull-right" style="margin: 1em 0; margin-right: 20px;" data-toggle="modal" data-target=".downloadModal"><i class="icon-level-down icon-white"></i> Download Domains</a>
-<!-- Modal -->
+
+<!--Download Modal -->
 <div class="modal fade downloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -163,16 +166,21 @@
                       <% } %>
                     </td>
                       <td>
-                       <div class="mode-show">
+                       <div class="mode-show ">
                         <% if(domain.action != ''  ){ %>
-                       <span class="action-out"><p><%=  domain.action %></p></span>
+                       <span class="action-out action"><%=domain.action %></span> <div class="corner action"><i class="icon-edit icon-white"></i></div>
                        <% } else{ %>
-                       <span class="action-out"><p>No Action!</p></span>
+                       <span class="action-out action">No Action!</span> <div class="corner action"><i class="icon-edit icon-white"></i></div>
                        <% } %>
-                       <a href='#' class="btn btn-small btn-primary action "><i class="icon-edit icon-white"></i> Edit Text</a>
+                       <!-- <a href='#' class="btn btn-small btn-primary action "><i class="icon-edit icon-white"></i> Edit Text</a> -->
                       </div>
                       <div class="mode-edit">
-                        <textarea class="textbox" rows="4" cols="50"></textarea>
+                          <% if(domain.action != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  domain.action %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No Action!</textarea>
+                           <% } %>
+                      
                         <a href="#" class="btn btn-small btn-success save-text"><i class="icon-save icon-white"></i> Save</a>
                       </div>
                     </td>

@@ -1,0 +1,9 @@
+<% layout('../layout.html') %>
+<% block('title', '<a href="/price">Price</a>') %>
+<% block('subtitle', 'Edit Price') %>
+<div class="container">
+  <form method="post" action="<%= pricePath(price.id) %>" class="form-horizontal user-form">
+    <input type="hidden" name="_method" value="put"/>
+    <% include edit-or-create-price.html.ejs %>
+  </form>
+</div>

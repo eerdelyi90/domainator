@@ -18,7 +18,9 @@
   </div>
 <% } %>
 
-<a href="<%= newUserPath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add new user</a>
+<div class="group-buttons">
+  <a href="<%= newUserPath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add new user</a>
+</div>
 <div style="clear:both"></div>
 <% if (! users.length) { %>
   <div class="alert alert-block alert-error">

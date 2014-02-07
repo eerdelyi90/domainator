@@ -19,7 +19,7 @@ var updateDate = function(path, action, id, date) {
   
   $.ajax({
      url: '/'+path+'/quickedit',
-     data: { action: action, date : date, 'id': id },
+     data: { action: action,date: date,'id': id},
      type:'post',
     success: function(data){
       // alert(action + ' has been updated');
@@ -186,7 +186,7 @@ $('.expiry-new').click(function() {
             var _this = $(this);
             $('.expiry-change').remove();
             $('.date').remove();
-            $(this).after('<div class="date"><input class="expiry-change" type="text"><span class="add-on"><i class="icon-th"></i></span></div>');
+            $(this).after('<div class="date"><input class="expiry-change" type="text"><span class="add-on"></span></div>');
             $('.date').datepicker({
               format: "dd/mm/yyyy",
               todayBtn: true
@@ -299,8 +299,8 @@ $('.expiry-new').click(function() {
     $('.action').click(function(e){
       var _this = $(this);
       e.preventDefault();
-      _this.parents('td').children('.mode-show').hide();
-      _this.parents('td').children('.mode-edit').show();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
     });
       $('.save-text').click(function(e){
       var _this = $(this);
@@ -308,8 +308,90 @@ $('.expiry-new').click(function() {
       console.log(_this.siblings('.textbox').val());
       updateAction('domains','action',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
       _this.parents('td').children('.mode-show').children('.action-out').html(_this.siblings('.textbox').val());
-      _this.parents('td').children('.mode-show').show();
-      _this.parents('td').children('.mode-edit').hide();
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
+      });
+
+
+      //rethink
+      $('.domaintype').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
+    });
+      $('.save-text-domaintype').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('prices','domaintype',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.price-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
+      });
+
+      $('.registrar').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
+    });
+      $('.save-text-registrar').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('prices','registrar',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.price-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
+      });
+
+      $('.prices').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
+    });
+      $('.save-text-prices').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('prices','prices',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.price-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
+      });
+
+    $('.year').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
+    });
+      $('.save-text-year').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('prices','year',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.price-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
+      });
+
+      $('.comment').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      _this.parents('td').children('.mode-show').hide("fast");
+      _this.parents('td').children('.mode-edit').show("fast");
+    });
+      $('.save-text-comment').click(function(e){
+      var _this = $(this);
+      e.preventDefault();
+      console.log(_this.siblings('.textbox').val());
+      updateAction('prices','comment',_this.parents('tr').data('id'),_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').children('.price-out').html(_this.siblings('.textbox').val());
+      _this.parents('td').children('.mode-show').show("fast");
+      _this.parents('td').children('.mode-edit').hide("fast");
       });
 
    

@@ -27,7 +27,7 @@ var sendmailTransport = nodemailer.createTransport("SMTP", {
 
  var mailOptions = {
     from: "cyber@cyb.co.uk",
-    to: "egon@cyb.co.uk",
+    to: "egon@cyb.co.uk, canwehelp@cyb.co.uk",
     subject: "The following domains are due for renewal!",
     text: "Plaintext body"
 }
@@ -204,6 +204,8 @@ DomainsController.quickedit = function(){
   var id    = this.param('id');
   var unixdate = new Date(params.date);
   console.log(unixdate);
+    console.log('action', params.action, 'text', params.text,'id', params.id, this.param('id'));
+
 
   switch(params.action){
     case 'paid':
@@ -506,7 +508,7 @@ DomainsController.alerts = function(){
 
         var mailOptions = {
           from: "cyber@cyb.co.uk",
-          to: "egon@cyb.co.uk",
+          to: "egon@cyb.co.uk, canwehelp@cyb.co.uk",
           subject: "The following domains are due for renewal!",
           text: "These domains need to be renewed within the next month: \n\n" +  domainInfo 
       }

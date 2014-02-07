@@ -1,0 +1,147 @@
+
+<% layout('../layout.html') %>
+<% block('title', 'Price List') %>
+<% block('subtitle', 'Price List Management') %>
+
+<% if (flash.success) { %>
+  <div class="alert alert-block alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4><%- flash.success[0] %></h4>
+    <%- flash.success[1] %>
+  </div>
+<% } %>
+
+<% if (flash.error) { %>
+  <div class="alert alert-block alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4><%- flash.error[0] %></h4>
+    <%- flash.error[1] %>
+  </div>
+<% } %>
+
+<div class="group-buttons">
+  <a href="<%= newPricePath() %>" class="btn btn-small btn-success pull-right" style="margin: 1em 0"><i class="icon-plus icon-white"></i> Add New Price</a>
+</div>
+<div style="clear:both"></div>
+  <div class="container users">
+    <div class="row">
+      <div class="col-lg-12">
+       <div class="table-responsive">
+          <table class="table table-bordered table-hover tablesorter">
+            <thead>
+              <th>Domain Type<i class="icon-sort"></i></th>
+              <th>Registrar<i class="icon-sort"></i></th>
+              <th>Price<i class="icon-sort"></i></th>
+              <th>Year<i class="icon-sort"></i></th>
+               <th>Comment<i class="icon-sort"></i></th>
+            </thead>
+            <tbody>
+              <% prices.forEach(function(price) { %>
+                <tr data-id="<%= price.id %>">
+                	  <td>  
+                  	<div class="mode-show ">
+                        <% if(price.domaintype != ''  ){ %>
+                       <span class="price-out domaintype"><%=price.domaintype %></span> <div class="corner domaintype"><i class="icon-edit icon-white"></i></div>
+                       <% } else{ %>
+                       <span class="price-out domaintype">No domaintype!</span> <div class="corner domaintype"><i class="icon-edit icon-white"></i></div>
+                       <% } %>
+                       <!-- <a href='#' class="btn btn-small btn-primary price "><i class="icon-edit icon-white"></i> Edit Text</a> -->
+                      </div>
+                      <div class="mode-edit">
+                          <% if(price.domaintype != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  price.domaintype %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No domaintype!</textarea>
+                           <% } %>
+                      
+                        <a href="#" class="btn btn-small btn-success save-text-domaintype"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
+                  </td>
+      
+                    <td>  
+                  	<div class="mode-show ">
+                        <% if(price.registrar != ''  ){ %>
+                       <span class="price-out registrar"><%=price.registrar %></span> <div class="corner registrar"><i class="icon-edit icon-white"></i></div>
+                       <% } else{ %>
+                       <span class="price-out registrar">No registrar!</span> <div class="corner registrar"><i class="icon-edit icon-white"></i></div>
+                       <% } %>
+                       <!-- <a href='#' class="btn btn-small btn-primary price "><i class="icon-edit icon-white"></i> Edit Text</a> -->
+                      </div>
+                      <div class="mode-edit">
+                          <% if(price.registrar != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  price.registrar %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No registrar!</textarea>
+                           <% } %>
+                      
+                        <a href="#" class="btn btn-small btn-success save-text-registrar"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
+                  </td>
+                  <td>  
+                  	<div class="mode-show ">
+                        <% if(price.price != ''  ){ %>
+                       <span class="price-out prices"><%=price.price %></span> <div class="corner prices"><i class="icon-edit icon-white"></i></div>
+                       <% } else{ %>
+                       <span class="price-out prices">No Price!</span> <div class="corner prices"><i class="icon-edit icon-white"></i></div>
+                       <% } %>
+                       <!-- <a href='#' class="btn btn-small btn-primary price "><i class="icon-edit icon-white"></i> Edit Text</a> -->
+                      </div>
+                      <div class="mode-edit">
+                          <% if(price.price != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  price.price %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No Price!</textarea>
+                           <% } %>
+                      
+                        <a href="#" class="btn btn-small btn-success save-text-prices"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
+                  </td>
+              	
+                    <td>  
+                  	<div class="mode-show ">
+                        <% if(price.year != ''  ){ %>
+                       <span class="price-out year"><%=price.year %></span> <div class="corner year"><i class="icon-edit icon-white"></i></div>
+                       <% } else{ %>
+                       <span class="price-out year">No Year!</span> <div class="corner year"><i class="icon-edit icon-white"></i></div>
+                       <% } %>
+                       <!-- <a href='#' class="btn btn-small btn-primary price "><i class="icon-edit icon-white"></i> Edit Text</a> -->
+                      </div>
+                      <div class="mode-edit">
+                          <% if(price.year != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  price.year %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No Year!</textarea>
+                           <% } %>
+                      
+                        <a href="#" class="btn btn-small btn-success save-text-year"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
+                  </td>
+                        <td>  
+                  	<div class="mode-show ">
+                        <% if(price.comment != ''  ){ %>
+                       <span class="price-out comment"><%=price.comment %></span> <div class="corner comment"><i class="icon-edit icon-white"></i></div>
+                       <% } else{ %>
+                       <span class="price-out comment">No Comment!</span> <div class="corner comment"><i class="icon-edit icon-white"></i></div>
+                       <% } %>
+                       <!-- <a href='#' class="btn btn-small btn-primary price "><i class="icon-edit icon-white"></i> Edit Text</a> -->
+                      </div>
+                      <div class="mode-edit">
+                          <% if(price.comment != ''  ){ %>
+                            <textarea class="textbox" rows="4" cols="50"><%=  price.comment %></textarea> 
+                          <% } else{ %>
+                              <textarea class="textbox" rows="4" cols="50">No Comment!</textarea>
+                           <% } %>
+                      
+                        <a href="#" class="btn btn-small btn-success save-text-comment"><i class="icon-save icon-white"></i> Save</a>
+                      </div>
+                  </td>
+                  <td><a href="<%= editPricePath(price.id) %>" class="btn btn-inverse">Edit</a></td>
+                  <td><a href="#" data-id="<%= price.id %>" class="btn btn-inverse delete-price-path">Delete</a></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+       </div>
+      </div>
+  </div>

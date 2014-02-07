@@ -10,7 +10,7 @@ module.exports = function routes() {
   this.match('login', 'account#login', { via: 'post' });
   this.match('logout', 'account#logout');
   this.match('error404', 'pages#error404');
-
+  
 
 
   // user resources
@@ -26,6 +26,11 @@ module.exports = function routes() {
 
   this.resources('domains');
 
+
+  // this.match('price','price#show');
+  this.match('prices/quickedit', 'prices#quickedit', { via: 'POST' });
+
+  this.resources('prices');
   // ':' prior to a link turns it into a variable for the controller
   // Domain related routes
   this.match('logs/:moduleRef/:moduleName', 'logs#show');

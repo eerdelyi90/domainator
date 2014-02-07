@@ -9,9 +9,22 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 /* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
 
 /* Global Styles */
-
-body {
+@font-face
+{
+font-family: edmondsans;
+src: url(/fonts/Edmondsans-Regular.otf);
+}
+body,h1 {
   margin-top: 50px;
+  font-family: edmondsans !important;
+  
+}
+p{
+  font-size: 15px;
+}
+
+.hero-unit{
+  margin-left: 20px;
 }
 
 #wrapper {
@@ -103,7 +116,7 @@ table.tablesorter thead tr th:hover {
 	left: 225px;
 	width: 225px;
 	position: fixed;
-	top: 50px;
+	top: 63px;
 	height: 100%;
 	border-radius: 0;
 	border: none;
@@ -133,17 +146,23 @@ table.tablesorter thead tr th:hover {
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
-	color: #fff;
-	background-color: #080808;
+	color: #333;
+	background-color: #F8C60F;
   }
 
   .side-nav>li>a {
 	width: 225px;
   }
-
+  .navbar-inverse .navbar-nav>li>a{
+    font-size: 18px;
+    color: #fff;
+    /*border-top: 1px solid #000;*/
+    border-top: 1px solid #000;
+  }
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
-	background-color: #080808;
+	color: #333;
+  background-color: #F8C60F;
   }
 
   /* Nav Messages */
@@ -183,6 +202,9 @@ table.tablesorter thead tr th:hover {
 .action-out{
   margin: 10px;
   padding-bottom: 5px;
+  /*text-align: left;*/
+  /*white-space: nowrap;*/
+  width: 200px;
 }
 .danger-cat{
   background-color:#ff9898;
@@ -191,14 +213,14 @@ table.tablesorter thead tr th:hover {
     background-color:#ffc966 ;
 }
 .warning-cat a{
-color:#000 ;
+color:#333 ;
 }
 .danger-cat a{
-color:#000 ;
+color:#333 ;
 }
  
  tr:hover{
-  color:#000;
+  color:#333;
  }
  .danger-cat a:hover{
    color:#00B7FF ;
@@ -207,4 +229,45 @@ color:#000 ;
    color:#00B7FF ;
 }
 
+.action{
+  cursor: pointer;
+}
+.textbox{
+  width: 250px;
+}
+.corner{
+  /*background-color:#f4f4f4;*/
+  padding: 5px;
+  position: relative;
+  top: 0px;
+  left: 8px; 
+  /*display: inline-block;*/
+  float: right;
+  cursor: pointer;
+}
+.expiry-change{
+  width: 75px;
+}
 
+td{
+  padding-top: 20px !important;
+}
+.btn-success{
+  background-color: #2AB0B3;
+  border-color: #2AB0B3;
+  border-radius: 1px;
+  margin-bottom: 0px;
+  color: #fff !important;
+}
+.btn-success:hover{
+  background-color: #FAD105;
+  border-color: #FAD105;
+  color: #333 !important;
+}
+.group-buttons{
+  float: left;
+  margin-left: 20px;
+}
+.price-out{
+  cursor: pointer;
+}

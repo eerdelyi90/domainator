@@ -1,0 +1,8 @@
+<% layout('../layout.html') %>
+<% block('title', '<a href="/price">Price</a>') %>
+<% block('subtitle', 'Create Price') %>
+<div class="container">
+  <form method="post" action="<%= pricesPath() %>" class="form-horizontal price-form">
+    <% include edit-or-create-price.html.ejs %>
+  </form>
+</div>
